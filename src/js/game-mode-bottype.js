@@ -4,6 +4,20 @@ import MenuMode from './game-mode-menu';
 const BOT_TYPE_ORDER = ['none', 'random', 'gradient-descent', 'tangent-intersection'];
 
 export default class BotTypeMode extends MenuMode {
+  handleEnterMode() {
+    super.handleEnterMode();
+
+    const $main = $('.main');
+    $main.addClass('mode-menu-bottype');
+  }
+
+  handleExitMode() {
+    const $main = $('.main');
+    $main.removeClass('mode-menu-bottype');
+
+    super.handleExitMode();
+  }
+
   getMenuTitleKeys() {
     return ['choose-bot-type', this.game.config.botTypeLabels];
   }

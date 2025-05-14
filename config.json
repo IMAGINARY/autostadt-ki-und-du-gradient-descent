@@ -1,6 +1,7 @@
 {
   "defaultLanguage": "de",
   "languages": ["de", "en"],
+  "showBotTypeTips": true,
   "useGamepads": true,
   "useScreenControls": false,
   "useKeyboardControls": true,

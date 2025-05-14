@@ -11,12 +11,12 @@
   },
   "bot-types": {
     "difficulty": {
-      "none": "None",
-      "random": "Easy",
+      "none": "none",
+      "random": "easy",
       "random-tip": "Searches randomly without a strategy",
-      "gradient-descent": "Medium",
+      "gradient-descent": "medium",
       "gradient-descent-tip": "Follows the downward slope of its probes to the bottom",
-      "tangent-intersection": "Hard",
+      "tangent-intersection": "hard",
       "tangent-intersection-tip": "Uses all players' probes to decide where to search"
     },
     "strategy": {

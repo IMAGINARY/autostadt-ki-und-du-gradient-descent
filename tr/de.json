@@ -6,17 +6,17 @@
   "press-to-restart": "Neustart mit Knopfdruck",
   "choose-num-players": "Wähle die Anzahl der Spielenden:",
   "choose-bot-type": {
-    "difficulty": "Wähle den Schwierigkeitsgrad des Bots",
+    "difficulty": "Füge ein automatisiertes Boot als Gegner hinzu:",
     "strategy": "Wähle die Art des Bots"
   },
   "bot-types": {
     "difficulty": {
-      "none": "Ohne",
-      "random": "Leicht",
+      "none": "ohne",
+      "random": "leicht",
       "random-tip": "Sucht zufällig ohne Strategie",
-      "gradient-descent": "Mittel",
+      "gradient-descent": "mittel",
       "gradient-descent-tip": "Folgt dem Gefälle seiner Sonden nach unten",
-      "tangent-intersection": "Schwer",
+      "tangent-intersection": "schwer",
       "tangent-intersection-tip": "Verwendet die Sonden aller Boote, um zu entscheiden, wo gesucht werden soll"
     },
     "strategy": {
