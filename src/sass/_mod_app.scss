@@ -18,8 +18,7 @@
     .game-view, .overlay {
       position: absolute;
       top: 0px;
-      height: #{$aspect-ratio-hw * 80}vw;
-      max-height: 80vh;
+      height: 100%;
       width: 100%;
     }
 

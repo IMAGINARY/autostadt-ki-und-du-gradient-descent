@@ -93,10 +93,8 @@ export default class PlayMode extends GameMode {
 
     const $remainingProbesContainer = $('<div class="remaining-probes"/>')
       .appendTo($gameStats);
-    localeInit($('<span>').appendTo($remainingProbesContainer), 'remaining-probes');
     this.$remainingTime = $('<span class="counter"/>')
       .appendTo($remainingTimeContainer);
-    this.$remainingProbes = $('<span />').appendTo($remainingProbesContainer);
     if (config.maxProbes === Number.POSITIVE_INFINITY)
       $remainingProbesContainer.hide()
 
@@ -154,8 +152,15 @@ export default class PlayMode extends GameMode {
       }
 
       // Add an element for displaying the number of remaining probes
-      const $remainingProbes = $(`<span class="counter ${cssClass}">${config.maxProbes}</span>`)
-        .appendTo(this.$remainingProbes);
+      const $myRemainingProbesContainer = $('<span>');
+        $myRemainingProbesContainer.addClass(cssClass);
+      $myRemainingProbesContainer.appendTo($remainingProbesContainer);
+      const $myRemainingProbesLabel = $('<span class="label">');
+      localeInit($myRemainingProbesLabel, 'remaining-probes');
+      $myRemainingProbesLabel.appendTo($myRemainingProbesContainer);
+      const $myRemainingProbesValue = $(`<span class="counter">`);
+      $myRemainingProbesValue.text(config.maxProbes);
+      $myRemainingProbesValue.appendTo($myRemainingProbesContainer);
 
       // Move boat in front of the probe
       boat.front();
@@ -187,7 +192,7 @@ export default class PlayMode extends GameMode {
           await new Promise(resolve => this._probeEventEmitter.addListener("probe-off", resolve));
         },
         remainingProbes: config.maxProbes,
-        $remainingProbes: $remainingProbes,
+        $remainingProbes: $myRemainingProbesValue,
       };
     };
 

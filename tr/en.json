@@ -30,7 +30,7 @@
     }
   },
   "remaining-time": "Time:",
-  "remaining-probes": "Probes:",
+  "remaining-probes": "Probes",
   "objective": "Find the treasure at the deepest point of the ocean!",
   "go": "Go!",
   "win-announcement-begin": "Player ",
