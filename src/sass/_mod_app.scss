@@ -3,6 +3,7 @@
   height: 100%;
 
   font-family: "Space Grotesk", sans-serif;
+  color: black;
 
   .min-aspect-ratio {
     position: relative;
@@ -37,7 +38,7 @@
   }
 }
 
-.title-bg {
+.title-bg, .menu-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -115,3 +116,62 @@
   left: 336px;
   border-width: 111px 68px 0 0;
 }
+
+.menu-title {
+  position: absolute;
+  top: 473px;
+  color: black;
+  font-size: 36px;
+  font-weight: normal;
+}
+
+.menu-selector {
+  text-align: center;
+  margin-top: 561px;
+
+  .item {
+    position: relative;
+    display: inline-block;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ff6836;
+    padding: 0;
+    box-sizing: border-box;
+    align-content: center;
+
+    &.selected {
+      background-color: $color-menu-accent;
+    }
+  }
+}
+
+.mode-menu-num-players .menu-selector .item {
+  width: 161px;
+  height: 161px;
+  border-radius: 50vh;
+  font-size: 80px;
+
+  &:not(:nth-child(1)) {
+    margin-left: 64px;
+  }
+}
+
+.menu-tip {
+  max-width: 75%;
+  margin: 6% auto 0;
+  line-height: 1;
+  color: $color-yellow-dim;
+}
+
+.mode-menu-num-players .overlay::after {
+  content: "";
+  background-image: url("../../Ansicht02.png");
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background-size: cover;
+  opacity: 50%;
+}
+

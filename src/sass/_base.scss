@@ -16,11 +16,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  color: $color-yellow;
-  background-color: $color-black-real;
-}
-
 @media (min-aspect-ratio: #{$width} / #{$height}), (aspect-ratio: #{$width} / #{$height}) {
   body {
     font-size: 4vh;

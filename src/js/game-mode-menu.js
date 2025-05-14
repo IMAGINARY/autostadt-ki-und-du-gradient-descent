@@ -4,13 +4,28 @@ import {localeInit} from "./i18n";
 
 export default class MenuMode extends GameMode {
 
-  constructor(game) {
+  constructor(game, ) {
     super(game);
+  }
+
+  async preLoadAssets() {
+    this.$bg = $(await this.game.loadImgElement('assets/img/menu-bg.png'));
   }
 
   handleEnterMode() {
     super.handleEnterMode();
+
+    const $main = $('.main');
+    $main.addClass('mode-menu');
+
     const $overlay = $(this.game.overlay);
+
+    this.$bg.addClass('menu-bg');
+    this.$bg.appendTo($overlay);
+
+    const $title = $('<div id="title">');
+    $title.get().forEach(e=>localeInit(e, 'title'));
+    $title.appendTo($overlay);
 
     const menuItemsSpecs = this.getMenuItems();
     const menuItemTipsSpecs = this.getMenuItemTips();
@@ -59,6 +74,9 @@ export default class MenuMode extends GameMode {
 
   handleExitMode() {
     // Cleanup timers, etc. created on handleEnterMode
+    const $main = $('.main');
+    $main.removeClass('mode-menu');
+
     super.handleExitMode();
   }
 

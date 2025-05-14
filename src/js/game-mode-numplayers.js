@@ -9,6 +9,20 @@ export default class PlayerNumberMode extends MenuMode {
       (_, id) => String(id + 1));
   }
 
+  handleEnterMode() {
+    super.handleEnterMode();
+
+    const $main = $('.main');
+    $main.addClass('mode-menu-num-players');
+  }
+
+  handleExitMode() {
+    const $main = $('.main');
+    $main.removeClass('mode-menu-num-players');
+
+    super.handleExitMode();
+  }
+
   getMenuTitleKeys() {
     return ['choose-num-players'];
   }

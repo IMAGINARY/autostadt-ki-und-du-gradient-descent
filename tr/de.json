@@ -4,7 +4,7 @@
   "title-description-2": "Findest du den Schatz\nam tiefsten Punkt des Ozeans?",
   "press-to-start": "Start mit Knopfdruck",
   "press-to-restart": "Neustart mit Knopfdruck",
-  "choose-num-players": "Wähle die Anzahl der Spieler*innen",
+  "choose-num-players": "Wähle die Anzahl der Spielenden:",
   "choose-bot-type": {
     "difficulty": "Wähle den Schwierigkeitsgrad des Bots",
     "strategy": "Wähle die Art des Bots"
