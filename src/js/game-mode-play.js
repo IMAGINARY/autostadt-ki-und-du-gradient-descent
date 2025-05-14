@@ -84,15 +84,18 @@ export default class PlayMode extends GameMode {
 
     this.$overlay = $('<div class="play" />').appendTo(this.game.overlay);
     const $gameStats = $('<div class="game-stats"/>').appendTo(this.$overlay);
+    const $gameStatsWrapper = $('<div class="game-stats-wrapper"/>').appendTo($gameStats);
 
     const $remainingTimeContainer = $('<div class="remaining-time"/>')
-      .appendTo($gameStats);
-    localeInit($('<span>').appendTo($remainingTimeContainer), 'remaining-time');
+      .appendTo($gameStatsWrapper);
+    const $remainingTimeLabel = $('<span class="label"/>');
+    localeInit($remainingTimeLabel, 'remaining-time');
+    $remainingTimeLabel.appendTo($remainingTimeContainer)
     if (config.maxTime === Number.POSITIVE_INFINITY)
       $remainingTimeContainer.hide()
 
     const $remainingProbesContainer = $('<div class="remaining-probes"/>')
-      .appendTo($gameStats);
+      .appendTo($gameStatsWrapper);
     this.$remainingTime = $('<span class="counter"/>')
       .appendTo($remainingTimeContainer);
     if (config.maxProbes === Number.POSITIVE_INFINITY)
@@ -440,8 +443,9 @@ export default class PlayMode extends GameMode {
     // Draw bottom
     // etc...
 
-    const padRemainingTime = num => pad(num, String(this.game.config.maxTime).length, ' ');
-    const remainingTimeText = padRemainingTime(Math.ceil(this.remainingTime / 1000.0));
+    const minutes = Math.floor(( this.remainingTime / 1000 + 1 ) / 60);
+    const seconds = Math.ceil(( this.remainingTime / 1000 ) % 60) % 60;
+    const remainingTimeText = `${minutes}`.padStart(2, '0') + ':' + `${seconds}`.padStart(2, '0');
     if(remainingTimeText !== this.$remainingTime.text()) {
       this.$remainingTime.text(remainingTimeText);
     }

@@ -29,7 +29,7 @@
       "tangent-intersection-tip": "Verwendet die Sonden aller Boote, um zu entscheiden, wo gesucht werden soll"
     }
   },
-  "remaining-time": "Zeit:",
+  "remaining-time": "Zeit",
   "remaining-probes": "Sonden",
   "objective": "Finde den Schatz am tiefsten Punkt des Ozeans!",
   "go": "Los!",

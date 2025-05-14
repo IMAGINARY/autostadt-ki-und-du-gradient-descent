@@ -29,7 +29,7 @@
       "tangent-intersection-tip": "Uses all players' probes to decide where to search"
     }
   },
-  "remaining-time": "Time:",
+  "remaining-time": "Time",
   "remaining-probes": "Probes",
   "objective": "Find the treasure at the deepest point of the ocean!",
   "go": "Go!",
