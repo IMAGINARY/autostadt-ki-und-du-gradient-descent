@@ -1,7 +1,8 @@
 .main {
-  @include regularText;
   width: 100%;
   height: 100%;
+
+  font-family: "Space Grotesk", sans-serif;
 
   .min-aspect-ratio {
     position: relative;
@@ -36,48 +37,81 @@
   }
 }
 
-.title-logo {
-  @include lightText;
-  text-transform: uppercase;
-  font-size: 40px;
-}
-
-.title-press-to-start {
-  @extend .blinking;
-  @extend .text;
-  @extend .text-center;
+.title-bg {
   position: absolute;
-  top: 80%;
-  color: $color-turquoise;
+  top: 0;
+  left: 0;
 }
 
-.menu-title {
-  margin-top: 15%;
+
+.bubble {
+  --bubble-color-1: #ff6836;
+  --bubble-color-2: #83b3ca;
+  --bubble-color: var(--bubble-color-1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: black;
+  word-wrap: break-word;
+  white-space: pre-line;
+  background-color: var(--bubble-color);
+  border-radius: 50vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }
 
-.menu-selector {
-  text-align: center;
-  margin-top: 10%;
-
-  .item {
-    position: relative;
-    display: inline-block;
-    margin: 0 5%;
-    padding-top: 0.16ex;
-    padding-bottom: 0.16ex;
-    box-sizing: content-box;
-
-    &.selected {
-      border-color: $color-yellow;
-      border-bottom: 0.09ex solid;
-      border-top: 0.09ex solid;
-    }
-  }
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border-width: 100px 75px 0 0;
+  border-style: solid;
+  border-color: var(--bubble-color) transparent;
 }
 
-.menu-tip {
-  max-width: 75%;
-  margin: 6% auto 0;
-  line-height: 1;
-  color: $color-yellow-dim;
+#title {
+  position: absolute;
+  top: 109px;
+  left: 90px;
+  color: black;
+  font-size: 80px;
+  font-weight: bold;
+  line-height: 96px;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+#title-bubble-1 {
+  --bubble-color: var(--bubble-color-1);
+  top: 761px;
+  left: 566px;
+  font-size: 24px;
+  height: 140px;
+  width: 338px;
+  line-height: 30px;
+}
+
+#title-bubble-1::after {
+  left: 193px;
+  border-width: 91px 0 0 56px;
+}
+
+#title-bubble-2 {
+  --bubble-color: var(--bubble-color-2);
+  top: 613px;
+  left: 773px;
+  font-size: 32px;
+  height: 181px;
+  width: 616px;
+  line-height: 36px;
+}
+
+#title-bubble-2::after {
+  left: 336px;
+  border-width: 111px 68px 0 0;
 }

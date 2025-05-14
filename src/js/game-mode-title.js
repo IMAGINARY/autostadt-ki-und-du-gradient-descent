@@ -1,7 +1,6 @@
 /* globals IMAGINARY */
 import {localeInit} from "./i18n";
 import GameMode from './game-mode';
-import WavyAnimation from './wavy-animation';
 
 export default class TitleMode extends GameMode {
   constructor(game, options) {
@@ -10,48 +9,32 @@ export default class TitleMode extends GameMode {
   }
 
   async preLoadAssets() {
-    this.logoSprite = await this.game.loadSVGSymbol('assets/img/descent-logo.svg');
-    this.poly = this.logoSprite.findOne('#descent');
+    this.$bg = $(await this.game.loadImgElement('assets/img/menu-bg.png'));
   }
 
   handleEnterMode() {
-    super.handleEnterMode();
+    const $overlay = $(this.game.overlay);
 
-    const { draw } = this.game;
-    const pressToStart = document.createElement('div');
-    pressToStart.classList.add('title-press-to-start');
-    localeInit(pressToStart,'press-to-start');
-    this.game.overlay.append(pressToStart);
+    this.$bg.appendTo($overlay);
+    this.$bg.addClass('title-bg');
 
-    const colorBegin = '#00368a';
-    const colorEnd = '#34c6ff';
+    const $title = $('<div id="title">');
+    $title.get().forEach(e=>localeInit(e, 'title'));
+    $title.appendTo($overlay);
 
-    const gradientLogo = draw.use(this.logoSprite)
-      .size(1200, 400)
-      .stroke({ color: colorBegin, width: 2 })
-      .fill('transparent')
-      .center(1920 / 2, 1080 / 2.5);
-    const gradientText = this.logoSprite.findOne('#gradient')
-      .stroke('none')
-      .fill(colorEnd)
-      .opacity(0);
-
-    gradientText.animate({ duration: 7000 }).opacity(1);
-    gradientLogo.animate({ duration: 5000 }).stroke({ color: colorEnd });
-    this.wavyStep = WavyAnimation(this.logoSprite, { duration: 3500 });
-
-    this.animCounter = 0;
-    this.elapsedTime = 0;
-  }
-
-  handleExitMode() {
-    // Cleanup timers, etc. created on handleEnterMode
-
-    // The animation must be set to its final state such that it can restart properly
-    // when this mode is re-entered.
-    this.wavyStep(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
+    const $description1 = $('<div id="title-description-1">');
+    $description1.get().forEach(e=>localeInit(e, 'title-description-1'));
+    const $bubble1 = $('<div id="title-bubble-1" class="bubble">');
+    $description1.appendTo($bubble1);
+    $bubble1.appendTo($overlay);
     
-    super.handleExitMode();
+    const $description2 = $('<div id="title-description-2">');
+    $description2.get().forEach(e=>localeInit(e, 'title-description-2'));
+    const $bubble2 = $('<div id="title-bubble-2" class="bubble">');
+    $description2.appendTo($bubble2);
+    $bubble2.appendTo($overlay);
+
+    this.elapsedTime = 0;
   }
 
   handleInputs(inputs, lastInputs, delta, ts0) {
@@ -66,13 +49,4 @@ export default class TitleMode extends GameMode {
       this.triggerEvent('timeout');
     }
   }
-
-  draw(delta, ts) {
-
-    this.wavyStep(delta, ts);
-  }
 }
-
-TitleMode.defaultOptions = {
-  duration: 8 * 1000,
-};

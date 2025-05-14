@@ -154,6 +154,21 @@ export default class GradientDescentGame {
   }
 
   /**
+   * Loads an external image into an img element
+   *
+   * @param {string} uri
+   * @returns {Promise<HTMLImageElement>}
+   */
+  async loadImgElement(uri) {
+    return await new Promise((resolve, reject) => {
+      const img = this.overlay.ownerDocument.createElement('img');
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = uri;
+    });
+  }
+
+  /**
    * Initializes the input state
    *
    * @private
