@@ -68,6 +68,11 @@ export default class PlayMode extends GameMode {
   }
 
   handleEnterMode() {
+    super.handleEnterMode();
+
+    const $main = $('.main');
+    $main.addClass('mode-play');
+
     const { draw, config, numPlayers, botType } = this.game;
 
     this.isGameOver = false;
@@ -303,6 +308,11 @@ export default class PlayMode extends GameMode {
     // Cleanup timers, etc. created on handleEnterMode
     if (this.bot !== null)
       this.events.removeListener('new-tangent', this.bot.tangentListener);
+
+    const $main = $('.main');
+    $main.addClass('mode-play');
+
+    super.handleExitMode();
   }
 
   static buildBotInput(bot) {
