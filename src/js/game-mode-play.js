@@ -302,7 +302,6 @@ export default class PlayMode extends GameMode {
     if (!config.showSeaFloor)
       this.groundGroup.addClass("clip");
 
-    this.groundGroup.back();
     this.groundGroup.node.style.setProperty('--clip-center-x', `${(1 + this.treasureLocation.x) * draw.width()}px`);
 
     this.tangentGroup = modeGroup.group()
