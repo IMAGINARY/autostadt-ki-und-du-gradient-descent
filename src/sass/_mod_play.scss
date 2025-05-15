@@ -42,6 +42,7 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
 .ground {
   stroke: $color-ground;
   fill: $color-bg;
+  stroke-dasharray: 14px, 12px;
 }
 
 .ground-cover {
