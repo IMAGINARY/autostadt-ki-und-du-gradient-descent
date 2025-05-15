@@ -292,15 +292,14 @@ export default class PlayMode extends GameMode {
     debugConsole.log("Map:", terrainHeights);
     debugConsole.log("Treasure location:", this.treasureLocation);
 
-    const behindGroundGroup = this.groundGroup.group();
-    const treasure = behindGroundGroup.group()
+    this.treasureGroup = modeGroup.group()
       .addClass('treasure')
       .transform({
         translateX: this.treasureLocation.x * draw.width(),
         translateY: TERRAIN_DISTANCE + this.treasureLocation.y * TERRAIN_HEIGHT_SCALE,
       });
-    this.treasureClosed = treasure.use(this.treasureClosedSymbol);
-    this.treasureOpened = treasure.use(this.treasureOpenedSymbol).hide();
+    this.treasureClosed = this.treasureGroup.use(this.treasureClosedSymbol).hide();
+    this.treasureOpened = this.treasureGroup.use(this.treasureOpenedSymbol).hide();
 
     this.ground = this.groundGroup.polygon(terrainPoints)
       .fill('black')
@@ -315,6 +314,9 @@ export default class PlayMode extends GameMode {
 
     this.tangentGroup = modeGroup.group()
       .translate(0, TERRAIN_DISTANCE);
+
+    // Set z ordering of elements
+    [this.groundGroup, this.tangentGroup, this.treasureGroup].forEach(e => e.front());
 
     this.discardInputs = true;
     this.showGameStartSequence(
@@ -546,6 +548,7 @@ export default class PlayMode extends GameMode {
 
     // Disable all inputs until the ending sequence is over.
     this.discardInputs = true;
+    this.treasureClosed.show();
     const uncoverGroundPromise = this.uncoverGround();
     await Promise.all(this.players.map(p => p.probingDone()));
     await endingSequenceCallback();
