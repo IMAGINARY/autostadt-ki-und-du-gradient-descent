@@ -247,12 +247,21 @@ export default class PlayMode extends GameMode {
     }
 
     this.water = modeGroup.group().attr('id', 'water').addClass('water');
+    const extraPoints = [
+      [game.draw.width() + 100, 0],
+      [game.draw.width() + 100, game.draw.height() + 100],
+      [-100, game.draw.height() + 100],
+      [-100, 0],
+    ];
     waves.animatedSVGPolyline(this.water,
       NUM_WATER_POINTS,
       (WATER_LOOP_DURATION / 1000) * WATER_FPS,
       game.draw.width(),
       WATER_HEIGHT_SCALE,
-      WATER_LOOP_DURATION);
+      WATER_LOOP_DURATION,
+      extraPoints,
+      true,
+    );
 
     this.groundGroup = modeGroup.group();
     const newTerrainHeights = () => {

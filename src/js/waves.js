@@ -41,12 +41,12 @@ export function points(arr, t, xScale = 1.0, yScale = 1.0) {
  * Experimental: Create an SVG wave shape that animates via the <animate> tag.
  * Probably, this doesn't work in all browsers. :-(
  */
-export function animatedSVGPolyline(svgContainer, numPoints, numSteps, xScale, yScale, duration) {
+export function animatedSVGPolyline(svgContainer, numPoints, numSteps, xScale, yScale, duration, extraPoints = [], closed = false) {
   const p = Array(numPoints).fill(null);
   const keyframes = Array(numSteps)
     .fill(null)
-    .map((_, i) => Array.from(points(p, i / (numSteps - 1), xScale, yScale)));
-  const waves = svgContainer.polyline(keyframes[0]);
+    .map((_, i) => [...points(p, i / (numSteps - 1), xScale, yScale), ...extraPoints]);
+  const waves = closed ? svgContainer.polygon(keyframes[0]) : svgContainer.polyline(keyframes[0]);
   const keyframesSvg = keyframes.map(p => waves.plot(p).attr('points'));
   const keyframesString = keyframesSvg.join(';\n').replace(/;[[:space:]]*;]/g, ';');
   const animate = waves.element('animate');

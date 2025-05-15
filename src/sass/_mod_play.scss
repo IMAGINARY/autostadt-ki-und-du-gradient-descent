@@ -37,6 +37,8 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
 
 .water {
   stroke: $color-water;
+  fill: $color-water;
+  opacity: 75%;
 }
 
 .ground {
