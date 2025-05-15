@@ -30,25 +30,24 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
   @include player($color-player-bot);
 }
 
-.cover {
-  stroke: none;
-  fill: $color-bg;
-}
-
 .water {
   stroke: $color-water;
   fill: $color-water;
   opacity: 75%;
 }
 
+.ground-group.clip {
+  --clip-center-x: 0px; /* Overwritten via JS */
+  --clip-width: 0px; /* Overwritten via JS */
+  --clip-transition-duration: 0s;  /* Overwritten in JS */
+  clip-path: polygon(calc(var(--clip-center-x) - var(--clip-width) / 2) 0, calc(var(--clip-center-x) + var(--clip-width) / 2) 0, calc(var(--clip-center-x) + var(--clip-width) / 2) 100%, calc(var(--clip-center-x) - var(--clip-width) / 2) 100%);
+  transition: var(--clip-transition-duration);
+}
+
 .ground {
   stroke: $color-ground;
   fill: $color-bg;
   stroke-dasharray: 14px, 12px;
-}
-
-.ground-cover {
-  @extend .cover;
 }
 
 .treasure {

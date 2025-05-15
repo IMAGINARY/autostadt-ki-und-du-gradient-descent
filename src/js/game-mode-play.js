@@ -298,17 +298,12 @@ export default class PlayMode extends GameMode {
       .addClass('ground')
       .translate(0, TERRAIN_DISTANCE);
 
-    const groundCover = this.groundGroup.group();
-    this.groundCoverLeft = groundCover.rect(draw.width(), draw.height())
-      .addClass('ground-cover')
-      .move(Math.ceil(draw.width() * (this.treasureLocation.x - 1)), -TERRAIN_HEIGHT_SCALE / 2);
-    this.groundCoverRight = groundCover.rect(draw.width(), draw.height())
-      .addClass('ground-cover')
-      .move(Math.floor(draw.width() * this.treasureLocation.x), -TERRAIN_HEIGHT_SCALE / 2);
-    if (config.showSeaFloor)
-      groundCover.hide();
+    this.groundGroup.addClass("ground-group");
+    if (!config.showSeaFloor)
+      this.groundGroup.addClass("clip");
 
     this.groundGroup.back();
+    this.groundGroup.node.style.setProperty('--clip-center-x', `${(1 + this.treasureLocation.x) * draw.width()}px`);
 
     this.tangentGroup = modeGroup.group()
       .translate(0, TERRAIN_DISTANCE);
@@ -552,21 +547,13 @@ export default class PlayMode extends GameMode {
 
   async uncoverGround(duration = UNCOVER_DURATION) {
     const { draw } = this.game;
-    if (duration === 0) {
-      // uncover immediately
-      this.groundCoverLeft.dx(-draw.width());
-      this.groundCoverRight.dx(draw.width());
-    } else {
-      // uncover using an animation
-      // (using an animation with duration 0 still takes > 0s for unknown reasons)
-      const circularEaseIn = pos => -(Math.sqrt(1 - (pos * pos)) - 1);
-      const animateDx = (e, dx) => e.animate(duration).dx(dx);
-      const animateDxPromise = (e, dx) => new Promise(resolve => animateDx(e, dx).after(resolve));
-      return Promise.all([
-        animateDxPromise(this.groundCoverLeft, -draw.width()),
-        animateDxPromise(this.groundCoverRight, draw.width())
-      ]);
-    }
+
+    // uncover using a CSS transition
+    const groundGroupStyle = this.groundGroup.node.style;
+    groundGroupStyle.setProperty('--clip-transition-duration', `${duration}ms`);
+    groundGroupStyle.setProperty('--clip-width', `${draw.width() * 2}px`);
+    // TODO: Wait for the CSS transition to end instead of using a timeout.
+    return new Promise((resolve) => setTimeout(resolve, duration));
   }
 
   async showGameStartSequence(firstMessageElem,
