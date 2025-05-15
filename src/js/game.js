@@ -51,7 +51,7 @@ export default class GradientDescentGame {
    * @return {Promise<void>}
    */
   async init() {
-    const [width, height] = [1920, 864];
+    const [width, height] = [1920, 1080];
 
     const minAspectRatioContainer = document.createElement('div')
     minAspectRatioContainer.classList.add('min-aspect-ratio');
