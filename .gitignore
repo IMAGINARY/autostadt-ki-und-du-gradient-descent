@@ -5,3 +5,6 @@ work
 
 # Useful during development to avoid modifying the default config file
 config.*.json
+
+# Ignore externally provided assets
+assets/img/external

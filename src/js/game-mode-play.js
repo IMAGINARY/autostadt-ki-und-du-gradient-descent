@@ -59,11 +59,20 @@ export default class PlayMode extends GameMode {
   }
 
   async preLoadAssets() {
-    this.shipSymbol = await this.game.loadSVGSymbol('assets/img/ship.svg');
-    this.shipSymbol.attr({ overflow: 'visible' });
-    this.treasureClosedSymbol = await this.game.loadSVGSymbol('assets/img/treasure-closed.svg');
+    const internalAssetUrls = {
+      ships: ['assets/img/ship.svg'],
+      treasureClosed: 'assets/img/treasure-closed.svg',
+      treasureOpened: 'assets/img/treasure-opened.svg',
+    }
+    const assetUrls = { ... internalAssetUrls, ... this.game.config.externalAssets ?? {} };
+    console.log(internalAssetUrls, this.game.config.externalAssets, assetUrls);
+
+    this.shipSymbols = await Promise.all(assetUrls.ships.map((s)=>{console.log(s);return this.game.loadSVGSymbol(s);}));
+    console.log(this.shipSymbols);
+    this.shipSymbols.forEach(s => s.attr({ overflow: 'visible' }));
+    this.treasureClosedSymbol = await this.game.loadSVGSymbol(assetUrls.treasureClosed);
     this.treasureClosedSymbol.attr({ overflow: 'visible' });
-    this.treasureOpenedSymbol = await this.game.loadSVGSymbol('assets/img/treasure-opened.svg');
+    this.treasureOpenedSymbol = await this.game.loadSVGSymbol(assetUrls.treasureOpened);
     this.treasureOpenedSymbol.attr({ overflow: 'visible' });
   }
 
@@ -117,7 +126,7 @@ export default class PlayMode extends GameMode {
         .addClass(cssClass)
         .transform({ translateX: x * draw.width() });
 
-      const boat = group.use(this.shipSymbol)
+      const boat = group.use(this.shipSymbols[playerIndex % this.shipSymbols.length])
         .center(0, BOAT_DRAFT);
 
       const probeParent = group.group();
