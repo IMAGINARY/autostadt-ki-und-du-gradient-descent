@@ -68,7 +68,7 @@ export default class PlayMode extends GameMode {
     }
     const assetUrls = { ... internalAssetUrls, ... this.game.config.externalAssets ?? {} };
 
-    this.shipSymbols = await Promise.all(assetUrls.ships.map((s)=>{console.log(s);return this.game.loadSVGSymbol(s);}));
+    this.shipSymbols = await Promise.all(assetUrls.ships.map((s) => this.game.loadSVGSymbol(s)));
     this.shipSymbols.forEach(s => s.attr({ overflow: 'visible' }));
     this.treasureClosedSymbol = await this.game.loadSVGSymbol(assetUrls.treasureClosed);
     this.treasureClosedSymbol.attr({ overflow: 'visible' });
