@@ -118,21 +118,22 @@ export default class PlayMode extends GameMode {
       .translate(0, WATER_DISTANCE);
 
     const padRemainingProbes = num => pad(num, String(this.game.config.maxProbes).length, ' ');
-    const createPlayer = (playerIndex, numPlayers, cssClass) => {
+    const createPlayer = (playerIndex, numPlayers, cssClass, isBot = false) => {
       const x = (playerIndex + 1) / (numPlayers + 1);
       const group = modeGroup.group();
       group
         .addClass(cssClass)
         .transform({ translateX: x * draw.width() });
 
-      const boat = group.use(this.shipSymbols[playerIndex % this.shipSymbols.length])
+      const shipSymbolIndex = isBot ? this.shipSymbols.length - 1 : playerIndex % this.shipSymbols.length;
+      const boat = group.use(this.shipSymbols[shipSymbolIndex])
         .center(0, BOAT_DRAFT);
 
       const probeRopeGradient = modeGroup.gradient('linear', function(add) {
         add.stop({ offset: 0 }).addClass('probe-rope-gradient-stop-0');
         add.stop({ offset: 1 }).addClass('probe-rope-gradient-stop-20');
         add.stop({ offset: 1 }).addClass('probe-rope-gradient-stop-100');
-      }).from(0, 0).to(0, 1).addClass(`player-${playerIndex}`);
+      }).from(0, 0).to(0, 1).addClass(cssClass);
 
       const probeParent = group.group();
       const probe = probeParent.group();
@@ -244,7 +245,7 @@ export default class PlayMode extends GameMode {
       );
       const bot = {};
       bot.type = botType;
-      bot.player = createPlayer(numPlayers, numPlayers + 1, 'player-bot');
+      bot.player = createPlayer(numPlayers, numPlayers + 1, 'player-bot', true);
       const nextTarget = () => botStrategy.getNextProbeLocation(
         this.tangents,
         bot.player,
