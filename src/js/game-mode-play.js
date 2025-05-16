@@ -28,8 +28,10 @@ const TERRAIN_DISTANCE = 295;
 // How far should the boat move on user input per ms
 const SPEED_FACTOR = 0.2 / 1000.0;
 
-const PROBE_SIZE = 10;
-const PROBE_DISTANCE_AT_REST = 0.3;
+const PROBE_SIZE = 15;
+// must be > 0 for the rope to have a non-zero bounding box area which is required to make gradients work :-(
+const PROBE_ROPE_START_X_OFFSET = 0.00001;
+const PROBE_DISTANCE_AT_REST = 0.25;
 const PROBE_MIN_DURATION = 500;
 const PROBE_DELAY = 500;
 
@@ -117,7 +119,6 @@ export default class PlayMode extends GameMode {
       .addClass('draw')
       .translate(0, WATER_DISTANCE);
 
-
     const padRemainingProbes = num => pad(num, String(this.game.config.maxProbes).length, ' ');
     const createPlayer = (playerIndex, numPlayers, cssClass) => {
       const x = (playerIndex + 1) / (numPlayers + 1);
@@ -129,11 +130,17 @@ export default class PlayMode extends GameMode {
       const boat = group.use(this.shipSymbols[playerIndex % this.shipSymbols.length])
         .center(0, BOAT_DRAFT);
 
+      const probeRopeGradient = modeGroup.gradient('linear', function(add) {
+        add.stop({ offset: 0 }).addClass('probe-rope-gradient-stop-0');
+        add.stop({ offset: 1 }).addClass('probe-rope-gradient-stop-20');
+        add.stop({ offset: 1 }).addClass('probe-rope-gradient-stop-100');
+      }).from(0, 0).to(0, 1).addClass(`player-${playerIndex}`);
+
       const probeParent = group.group();
       const probe = probeParent.group();
       const probeY = TERRAIN_DISTANCE * PROBE_DISTANCE_AT_REST;
-      const probeRope = probe.line(0, BOAT_DRAFT, 0, probeY - PROBE_SIZE / 2);
-      const probeCircle = probe.circle(PROBE_SIZE).center(0, probeY);
+      const probeRope = probe.line(PROBE_ROPE_START_X_OFFSET, BOAT_DRAFT, 0, probeY - PROBE_SIZE / 2).stroke(probeRopeGradient).addClass("probe-rope");
+      const probeCircle = probe.circle(PROBE_SIZE).center(0, probeY).addClass("probe")
 
       const doProbe = function (terrainHeight) {
         this.probing = true;
@@ -147,7 +154,7 @@ export default class PlayMode extends GameMode {
         const probeDown = probeCircle.animate(probeDuration, 0, 'now')
           .cy(probeHeight);
         const probeRopeDown = probeRope.animate(probeDuration, 0, 'now')
-          .plot(0, BOAT_DRAFT, 0, probeHeight - PROBE_SIZE / 2);
+          .plot(PROBE_ROPE_START_X_OFFSET, BOAT_DRAFT, 0, probeHeight - PROBE_SIZE / 2);
 
         const yUp = this.remainingProbes > 0 ? TERRAIN_DISTANCE
           * PROBE_DISTANCE_AT_REST : BOAT_DRAFT + PROBE_SIZE;
@@ -155,7 +162,7 @@ export default class PlayMode extends GameMode {
           .cy(yUp)
           .after(() => this.probing = false);
         const probeRopeUp = probeRopeDown.animate(probeDuration, PROBE_DELAY)
-          .plot(0, BOAT_DRAFT, 0, yUp - PROBE_SIZE / 2);
+          .plot(PROBE_ROPE_START_X_OFFSET, BOAT_DRAFT, 0, yUp - PROBE_SIZE / 2);
 
         return {
           down: new Promise(resolve => probeDown.after(resolve)),

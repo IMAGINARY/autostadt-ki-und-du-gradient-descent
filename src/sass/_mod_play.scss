@@ -30,6 +30,24 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
   @include player($color-player-bot);
 }
 
+.probe {
+  stroke: black;
+  stroke-width: 1px;
+  fill: var(--player-color);
+}
+
+.probe-rope-gradient-stop-0 {
+  stop-color: color-mix(in hsl, var(--player-color), black 40%);
+}
+
+.probe-rope-gradient-stop-20, .probe-rope-gradient-stop-100 {
+  stop-color: var(--player-color);
+}
+
+.probe-rope {
+  stroke-width: 4px;
+}
+
 .water {
   stroke: $color-water;
   fill: $color-water;
