@@ -212,6 +212,9 @@ export default class PlayMode extends GameMode {
             return;
           await new Promise(resolve => this._probeEventEmitter.addListener("probe-off", resolve));
         },
+        hideProbe: function () {
+          probe.hide();
+        },
         remainingProbes: config.maxProbes,
         $remainingProbes: $myRemainingProbesValue,
       };
@@ -572,6 +575,10 @@ export default class PlayMode extends GameMode {
 
     const uncoverGroundPromise = this.uncoverGround();
     await Promise.all(this.players.map(p => p.probingDone()));
+
+    // Hide the probes
+    this.players.forEach(p => p.hideProbe());
+
     await endingSequenceCallback();
     this.discardInputs = false;
     await uncoverGroundPromise;
