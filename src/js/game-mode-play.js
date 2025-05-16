@@ -598,75 +598,42 @@ export default class PlayMode extends GameMode {
   }
 
   async showWinSequence(winner) {
+    const {draw} = this.game;
+
+    const left = winner.x * draw.width();
+    const top = WATER_DISTANCE + BOAT_DRAFT;
+
     const $winAnnouncement = $('<span>').append(
-        localeInit($('<span>'), 'win-announcement-begin'),
-        $('<span>').text(winner.id + 1),
-        localeInit($('<span>'), 'win-announcement-end'),
+        localeInit($('<span class="win-announcement-part-1">'), 'win-announcement-part-1'),
+        localeInit($('<span class="win-announcement-part-2">'), 'win-announcement-part-2'),
+        $('<span class="win-announcement-player">').text(winner.id + 1),
+        localeInit($('<span class="win-announcement-part-3">'), 'win-announcement-part-3'),
     );
     const randomIdx = arr => Math.floor(Math.random() * (arr.length - 1));
     const $treasure = localeInit($('<span>'), 'treasures', randomIdx(IMAGINARY.i18n.t('treasures')));
 
-    const openTreaureChest = () => {
-      this.treasureOpened.show();
-      this.treasureClosed.hide();
-    }
+    const $firstMessageDiv = $('<div class="line">').append($winAnnouncement);
+    const $secondMessageDiv = $('<div class="line">').append($treasure)
+        .css('visibility', 'hidden');
 
-    await this.showWinSequenceInternal(
-      $winAnnouncement,
-      $treasure,
-      openTreaureChest,
-      [winner.cssClass]
-    );
-  }
+    const $container = $('<div>').append([$firstMessageDiv, $secondMessageDiv]);
 
-  async showWinSequenceInternal(firstMessageElem,
-                             secondMessageElem,
-                             secondMessageCallback = Function.prototype,
-                             cssClasses = []) {
-    const { draw } = this.game;
-
-    const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-    const $firstMessageDiv = $('<div class="line">').append(firstMessageElem);
-    const $secondMessageDiv = $('<div class="line">').append(secondMessageElem)
-      .css('visibility', 'hidden');
-    const $restartDiv = $('<div class="blinking">')
-      .css('visibility', 'hidden');
-    localeInit($restartDiv, 'press-to-restart');
-
-    const $endingSequenceDiv = $('<div class="announcement-sequences-text" />')
-      .addClass(cssClasses)
-      .append([$firstMessageDiv, $secondMessageDiv, $('<br>'), $restartDiv]);
-
-    const left = 100 * this.treasureLocation.x;
-    const top = 100 * (WATER_DISTANCE + TERRAIN_DISTANCE) / draw.height();
-    const $announcementAnchor = $('<div class="announcement-sequences-text-anchor" />')
-      .css({
-        left: `${left}%`,
-        top: `${top}%`,
-        width: "0px",
-        height: "0px",
-      });
+    const $endingSequenceDiv = $('<div class="announcement-sequences-text bubble game-won" />')
+        .addClass(left < draw.width() / 2 ? 'arrow-left' : 'arrow-right')
+        .css({'--anchor-x': `${left}px`, '--anchor-y': `${top}px`})
+        .append($container);
 
     await delay(ENDING_SEQUENCE_FST_DELAY);
-    this.$endingSequenceContainer.empty().append([$announcementAnchor, $endingSequenceDiv]);
-
-    // popper.js places the ending sequence text in a popup-like fashion above the announcement
-    // anchor and makes sure that is does not move off the screen if the anchor is to close to a
-    // screen edge.
-    createAutoUpdatingPopper(
-      $announcementAnchor.get(0),
-      $endingSequenceDiv.get(0),
-      {
-        placement: 'top',
-      });
+    this.$endingSequenceContainer.empty().append($endingSequenceDiv);
 
     await delay(ENDING_SEQUENCE_SND_DELAY);
     $secondMessageDiv.css("visibility", "visible");
-    secondMessageCallback();
+
+    this.treasureOpened.show();
+    this.treasureClosed.hide();
 
     await delay(ENDING_SEQUENCE_RESTART_DELAY);
-    $restartDiv.css("visibility", "visible");
+    this.showRestartHint();
   }
 
   async showLoseSequenceTimeIsUp() {

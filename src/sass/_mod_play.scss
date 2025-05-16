@@ -98,8 +98,62 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
     top: 488px;
   }
 
-  .announcement-sequences-text-anchor {
-    position: absolute;
+  .announcement-sequences-text.game-won.bubble {
+    --bubble-color: var(--bubble-color-2);
+    --anchor-x: 0px;
+    --anchor-y: 0px;
+    --arrow-width: 40px;
+    --arrow-height: 58px;
+    --anchor-offset-x: 89px;
+    --width: 468px;
+    width: var(--width);
+    height: 167px;
+    padding-left: 74px;
+    padding-right: 74px;
+    transform: translate(0px, 21px);
+    font-size: 24px;
+
+    &::after {
+      top: unset;
+      bottom: 100%;
+    }
+
+    &.arrow-left {
+      top: calc(var(--anchor-y) + var(--arrow-height));
+      left: calc(var(--anchor-x) - var(--anchor-offset-x));
+    }
+
+    &.arrow-left::after {
+      left: var(--anchor-offset-x);
+      border-left-width: 0;
+      border-bottom-width: var(--arrow-height);
+      border-right-width: var(--arrow-width);
+      border-top-width: 0;
+    }
+
+    &.arrow-right {
+      top: calc(var(--anchor-y) + var(--arrow-height));
+      left: calc(var(--anchor-x) - var(--width) + var(--anchor-offset-x));
+    }
+
+    &.arrow-right::after {
+      left: calc(100% - var(--anchor-offset-x) - var(--arrow-width));
+      border-left-width: var(--arrow-width);
+      border-bottom-width: var(--arrow-height);
+      border-right-width: 0;
+      border-top-width: 0;
+    }
+
+    .win-announcement-part-1 {
+      font-weight: bold;
+    }
+
+    .line-1 {
+      margin-bottom: 14px;
+    }
+
+    .line-2 {
+    }
   }
 
   .restart-hint.bubble {
@@ -115,7 +169,7 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
     &::after {
       left: 68px;
       border-right-width: 40px;
-      border-top-widtH: 58px;
+      border-top-width: 58px;
     }
   }
 
