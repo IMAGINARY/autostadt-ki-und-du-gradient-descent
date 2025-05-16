@@ -641,7 +641,6 @@ export default class PlayMode extends GameMode {
     await delay(ENDING_SEQUENCE_FST_DELAY);
     this.$endingSequenceContainer.empty().append($endingSequenceDiv);
 
-    await delay(ENDING_SEQUENCE_SND_DELAY);
     $secondMessageDiv.css("visibility", "visible");
 
     this.treasureOpened.show();
