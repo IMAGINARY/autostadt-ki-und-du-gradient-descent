@@ -93,6 +93,7 @@ export default class PlayMode extends GameMode {
 
     this.$overlay = $('<div class="play" />').appendTo(this.game.overlay);
     const $gameStats = $('<div class="game-stats"/>').appendTo(this.$overlay);
+    this.$gameState = $gameStats;
     const $gameStatsWrapper = $('<div class="game-stats-wrapper"/>').appendTo($gameStats);
 
     const $remainingTimeContainer = $('<div class="remaining-time"/>')
@@ -555,6 +556,10 @@ export default class PlayMode extends GameMode {
     // Disable all inputs until the ending sequence is over.
     this.discardInputs = true;
     this.treasureClosed.show();
+
+    // Hide the game state
+    this.$gameState.hide();
+
     const uncoverGroundPromise = this.uncoverGround();
     await Promise.all(this.players.map(p => p.probingDone()));
     await endingSequenceCallback();
