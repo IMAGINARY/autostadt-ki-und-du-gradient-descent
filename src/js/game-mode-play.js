@@ -338,7 +338,7 @@ export default class PlayMode extends GameMode {
       this.events.removeListener('new-tangent', this.bot.tangentListener);
 
     const $main = $('.main');
-    $main.addClass('mode-play');
+    $main.removeClass('mode-play');
 
     super.handleExitMode();
   }
