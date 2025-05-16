@@ -27,11 +27,11 @@ $color-water: #9999ff;
 $color-ground: $color-menu-accent;
 $color-treasure: #F99C2D;
 
-$color-player-0: $color-blue;
-$color-player-1: $color-red;
+$color-player-0: #60b5cf;
+$color-player-1: #f2b73f;
 $color-player-2: $color-green;
 $color-player-3: $color-orange;
-$color-player-bot: $color-yellow;
+$color-player-bot: #F2b73f;
 
 @mixin neg {
   -webkit-font-smoothing: antialiased;
