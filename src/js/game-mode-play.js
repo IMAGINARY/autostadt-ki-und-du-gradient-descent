@@ -322,7 +322,7 @@ export default class PlayMode extends GameMode {
       .translate(0, TERRAIN_DISTANCE);
 
     // Set z ordering of elements
-    [this.groundGroup, this.tangentGroup, this.treasureGroup].forEach(e => e.front());
+    [this.groundGroup, this.tangentGroup, this.water, this.treasureGroup].forEach(e => e.front());
 
     this.discardInputs = true;
     this.showGameStartSequence(
