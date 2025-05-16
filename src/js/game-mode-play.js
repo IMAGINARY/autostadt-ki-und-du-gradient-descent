@@ -324,6 +324,9 @@ export default class PlayMode extends GameMode {
 
     this.groundGroup.node.style.setProperty('--clip-center-x', `${(1 + this.treasureLocation.x) * draw.width()}px`);
 
+    // Uncomment to draw a box around the terrain area - useful for positioning the terrain and other UI element
+    // this.groundGroup.rect(draw.width(), TERRAIN_HEIGHT_SCALE).move(0, TERRAIN_DISTANCE).stroke("black");
+
     this.tangentGroup = modeGroup.group()
       .translate(0, TERRAIN_DISTANCE);
 
