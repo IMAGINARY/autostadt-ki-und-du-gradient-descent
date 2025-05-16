@@ -73,7 +73,21 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
 }
 
 .overlay {
-  .announcement-sequences-text {
+  .announcement-sequences-text.game-start {
+    text-align: center;
+    font-size: 36px;
+
+    .line-1 {
+      margin-bottom: 10px;
+    }
+
+    .line-2 {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+
+  .announcement-sequences-text:not(.game-start) {
     text-align: center;
     text-transform: uppercase;
     padding-bottom: 0.25ex;

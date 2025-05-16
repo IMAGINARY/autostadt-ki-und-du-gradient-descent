@@ -580,19 +580,18 @@ export default class PlayMode extends GameMode {
 
     const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-    const $firstMessageDiv = $('<div class="line">').append(firstMessageElem);
-    const $secondMessageDiv = $('<div class="line">').append(secondMessageElem)
+    const $firstMessageDiv = $('<div class="line line-1">').append(firstMessageElem);
+    const $secondMessageDiv = $('<div class="line line-2">').append(secondMessageElem)
         .css('visibility', 'hidden');
 
-    const $startSequenceDiv = $('<div class="announcement-sequences-text" />')
+    const $startSequenceDiv = $('<div class="announcement-sequences-text game-start" />')
         .addClass(cssClasses)
-        .append([$firstMessageDiv, $('<br>'), $secondMessageDiv]);
+        .append([$firstMessageDiv, $secondMessageDiv]);
 
-    const top = 100 * (WATER_DISTANCE + TERRAIN_DISTANCE) / draw.height();
     const $announcementAnchor = $('<div class="announcement-sequences-text-anchor" />')
         .css({
           left: `50%`,
-          top: `${top}%`,
+          top: `712px`,
           width: "0px",
           height: "0px",
         });
