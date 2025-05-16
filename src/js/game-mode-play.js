@@ -577,10 +577,6 @@ export default class PlayMode extends GameMode {
                              secondMessageElem,
                              secondMessageCallback = Function.prototype,
                              cssClasses = []) {
-    const { draw } = this.game;
-
-    const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
     const $firstMessageDiv = $('<div class="line line-1">').append(firstMessageElem);
     const $secondMessageDiv = $('<div class="line line-2">').append(secondMessageElem)
         .css('visibility', 'hidden');
@@ -589,26 +585,8 @@ export default class PlayMode extends GameMode {
         .addClass(cssClasses)
         .append([$firstMessageDiv, $secondMessageDiv]);
 
-    const $announcementAnchor = $('<div class="announcement-sequences-text-anchor" />')
-        .css({
-          left: `50%`,
-          top: `712px`,
-          width: "0px",
-          height: "0px",
-        });
-
     await delay(START_SEQUENCE_FST_DELAY);
-    this.$endingSequenceContainer.empty().append([$announcementAnchor, $startSequenceDiv]);
-
-    // popper.js places the ending sequence text in a popup-like fashion above the announcement
-    // anchor and makes sure that is does not move off the screen if the anchor is to close to a
-    // screen edge.
-    createAutoUpdatingPopper(
-        $announcementAnchor.get(0),
-        $startSequenceDiv.get(0),
-        {
-          placement: 'top',
-        });
+    this.$endingSequenceContainer.empty().append($startSequenceDiv);
 
     await delay(START_SEQUENCE_AFTER_FST_DELAY);
 
@@ -616,7 +594,7 @@ export default class PlayMode extends GameMode {
     secondMessageCallback();
 
     await delay(START_SEQUENCE_AFTER_SND_DELAY);
-    this.$endingSequenceContainer.empty()
+    this.$endingSequenceContainer.empty();
   }
 
   async showWinSequence(winner) {
@@ -719,4 +697,8 @@ function createAutoUpdatingPopper(reference, popper, options) {
   const observer = new MutationObserver(() => popperInstance.update());
   observer.observe(popper, {subtree: true, childList: true, characterData: true});
   return popperInstance;
+}
+
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

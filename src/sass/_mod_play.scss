@@ -74,11 +74,15 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
 
 .overlay {
   .announcement-sequences-text.game-start {
+    position: absolute;
+    left: 50%;
+    top: 610px;
+    transform: translate(-50%, 0%);
     text-align: center;
     font-size: 36px;
 
     .line-1 {
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
     .line-2 {
