@@ -19,11 +19,11 @@ const WATER_LOOP_DURATION = 20 * 1000;
 
 const BOAT_DRAFT = 18;
 
-const TERRAIN_HEIGHT_SCALE = 350;
+const TERRAIN_HEIGHT_SCALE = 340;
 const NUM_TERRAIN_POINTS = 300;
 const MAX_TERRAIN_EXTREMA = 20;
 const TERRAIN_MARGIN_WIDTH = 0.1;
-const TERRAIN_DISTANCE = 295;
+const TERRAIN_DISTANCE = 285;
 
 // How far should the boat move on user input per ms
 const SPEED_FACTOR = 0.2 / 1000.0;
