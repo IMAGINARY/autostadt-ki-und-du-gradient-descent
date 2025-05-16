@@ -571,11 +571,6 @@ export default class PlayMode extends GameMode {
     // Add the line overlay
     this.$overlay.append(this.linesImg);
 
-    // Add the end title text
-    const $endTitle = $('<div id="game-over-title">');
-    localeInit($endTitle, 'game-over-title');
-    $endTitle.appendTo(this.$overlay);
-
     const uncoverGroundPromise = this.uncoverGround();
     await Promise.all(this.players.map(p => p.probingDone()));
 
@@ -707,6 +702,11 @@ export default class PlayMode extends GameMode {
     localeInit($restartText, 'press-to-restart');
 
     this.$endingSequenceContainer.append($restartDiv);
+
+    // Add the end title text
+    const $endTitle = $('<div id="game-over-title">');
+    localeInit($endTitle, 'game-over-title');
+    $endTitle.appendTo(this.$overlay);
   }
 }
 
