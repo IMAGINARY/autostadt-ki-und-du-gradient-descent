@@ -67,10 +67,8 @@ export default class PlayMode extends GameMode {
       treasureOpened: 'assets/img/treasure-opened.svg',
     }
     const assetUrls = { ... internalAssetUrls, ... this.game.config.externalAssets ?? {} };
-    console.log(internalAssetUrls, this.game.config.externalAssets, assetUrls);
 
     this.shipSymbols = await Promise.all(assetUrls.ships.map((s)=>{console.log(s);return this.game.loadSVGSymbol(s);}));
-    console.log(this.shipSymbols);
     this.shipSymbols.forEach(s => s.attr({ overflow: 'visible' }));
     this.treasureClosedSymbol = await this.game.loadSVGSymbol(assetUrls.treasureClosed);
     this.treasureClosedSymbol.attr({ overflow: 'visible' });
