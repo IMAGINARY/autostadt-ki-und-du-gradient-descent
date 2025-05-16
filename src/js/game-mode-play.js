@@ -611,7 +611,7 @@ export default class PlayMode extends GameMode {
       this.treasureClosed.hide();
     }
 
-    await this.showGameOverSequence(
+    await this.showWinSequenceInternal(
       $winAnnouncement,
       $treasure,
       openTreaureChest,
@@ -619,21 +619,7 @@ export default class PlayMode extends GameMode {
     );
   }
 
-  async showLoseSequenceTimeIsUp() {
-    await this.showGameOverSequence(
-        localeInit($('<span>'), 'time-is-up'),
-        localeInit($('<span>'), 'game-over'),
-    );
-  }
-
-  async showLoseSequenceNoProbesLeft() {
-    await this.showGameOverSequence(
-        localeInit($('<span>'), 'no-probes-left'),
-        localeInit($('<span>'), 'game-over'),
-    );
-  }
-
-  async showGameOverSequence(firstMessageElem,
+  async showWinSequenceInternal(firstMessageElem,
                              secondMessageElem,
                              secondMessageCallback = Function.prototype,
                              cssClasses = []) {
@@ -681,6 +667,51 @@ export default class PlayMode extends GameMode {
 
     await delay(ENDING_SEQUENCE_RESTART_DELAY);
     $restartDiv.css("visibility", "visible");
+  }
+
+  async showLoseSequenceTimeIsUp() {
+    await this.showLoseSequence(
+        localeInit($('<span>'), 'time-is-up'),
+        localeInit($('<span>'), 'game-over'),
+    );
+  }
+
+  async showLoseSequenceNoProbesLeft() {
+    await this.showLoseSequence(
+        localeInit($('<span>'), 'no-probes-left'),
+        localeInit($('<span>'), 'game-over'),
+    );
+  }
+
+  async showLoseSequence(firstMessageElem,
+                             secondMessageElem,
+                             secondMessageCallback = Function.prototype,
+                             cssClasses = []) {
+    const $firstMessageDiv = $('<div class="line line-1">').append(firstMessageElem);
+    const $secondMessageDiv = $('<div class="line line-2">').append(secondMessageElem)
+        .css('visibility', 'hidden');
+
+    const $startSequenceDiv = $('<div class="announcement-sequences-text game-lost" />')
+        .addClass(cssClasses)
+        .append([$firstMessageDiv, $secondMessageDiv]);
+
+    await delay(ENDING_SEQUENCE_FST_DELAY);
+    this.$endingSequenceContainer.empty().append($startSequenceDiv);
+
+    await delay(ENDING_SEQUENCE_SND_DELAY);
+    $secondMessageDiv.css("visibility", "visible");
+    secondMessageCallback();
+
+    await delay(ENDING_SEQUENCE_RESTART_DELAY);
+    this.showRestartHint();
+  }
+
+  showRestartHint() {
+    const $restartDiv = $('<div class="restart-hint bubble">');
+    const $restartText = $('<span>').appendTo($restartDiv);
+    localeInit($restartText, 'press-to-restart');
+
+    this.$endingSequenceContainer.append($restartDiv);
   }
 }
 

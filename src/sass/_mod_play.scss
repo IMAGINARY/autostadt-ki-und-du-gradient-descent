@@ -73,10 +73,9 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
 }
 
 .overlay {
-  .announcement-sequences-text.game-start {
+  .announcement-sequences-text.game-start,.announcement-sequences-text.game-lost {
     position: absolute;
     left: 50%;
-    top: 610px;
     transform: translate(-50%, 0%);
     text-align: center;
     font-size: 36px;
@@ -91,18 +90,33 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
     }
   }
 
-  .announcement-sequences-text:not(.game-start) {
-    text-align: center;
-    text-transform: uppercase;
-    padding-bottom: 0.25ex;
+  .announcement-sequences-text.game-start {
+    top: 610px;
+  }
 
-    .line {
-      margin-bottom: 0.4ex;
-    }
+  .announcement-sequences-text.game-lost {
+    top: 488px;
   }
 
   .announcement-sequences-text-anchor {
     position: absolute;
+  }
+
+  .restart-hint.bubble {
+    --bubble-color: var(--bubble-color-1);
+    font-size: 24px;
+    height: 126px;
+    top: 859px;
+    left: 1204px;
+    width: 264px;
+    padding-left: 57px;
+    padding-right: 20px;
+
+    &::after {
+      left: 68px;
+      border-right-width: 40px;
+      border-top-widtH: 58px;
+    }
   }
 
   .game-stats {
