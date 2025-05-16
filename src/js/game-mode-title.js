@@ -50,3 +50,7 @@ export default class TitleMode extends GameMode {
     }
   }
 }
+
+TitleMode.defaultOptions = {
+  duration: 8 * 1000,
+};
