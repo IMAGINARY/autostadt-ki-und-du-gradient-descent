@@ -161,15 +161,36 @@ $player-colors: $color-player-0, $color-player-1, $color-player-2, $color-player
     font-size: 24px;
     height: 126px;
     top: 859px;
-    left: 1204px;
     width: 264px;
     padding-left: 57px;
     padding-right: 20px;
 
     &::after {
       left: 68px;
+    }
+  }
+
+  .restart-hint.bubble.right {
+    left: 1204px;
+
+    &::after {
+      left: 68px;
       border-right-width: 40px;
       border-top-width: 58px;
+      border-left-width: 0;
+      border-bottom-width: 0;
+    }
+  }
+
+  .restart-hint.bubble.left {
+    left: calc(1920px - 264px - 1204px);
+
+    &::after {
+      left: calc(100% - 58px - 68px);
+      border-right-width: 0;
+      border-top-width: 58px;
+      border-left-width: 40px;
+      border-bottom-width: 0;
     }
   }
 

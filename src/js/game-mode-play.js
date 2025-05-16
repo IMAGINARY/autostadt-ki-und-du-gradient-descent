@@ -695,7 +695,11 @@ export default class PlayMode extends GameMode {
   }
 
   showRestartHint() {
-    const $restartDiv = $('<div class="restart-hint bubble">');
+    const $restartDiv = $('<div class="restart-hint bubble">')
+
+    // Put the restart hint on the screen side opposite of the treasure
+    $restartDiv.addClass(this.treasureLocation.x > 0.5 ? 'left' : 'right');
+
     const $restartText = $('<span>').appendTo($restartDiv);
     localeInit($restartText, 'press-to-restart');
 
