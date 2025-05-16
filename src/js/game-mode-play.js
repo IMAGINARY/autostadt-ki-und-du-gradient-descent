@@ -74,6 +74,8 @@ export default class PlayMode extends GameMode {
     this.treasureClosedSymbol.attr({ overflow: 'visible' });
     this.treasureOpenedSymbol = await this.game.loadSVGSymbol(assetUrls.treasureOpened);
     this.treasureOpenedSymbol.attr({ overflow: 'visible' });
+
+    this.linesImg = await this.game.loadImgElement('assets/img/lines.svg');
   }
 
   handleEnterMode() {
@@ -560,6 +562,9 @@ export default class PlayMode extends GameMode {
     // Hide the game state
     this.$gameState.hide();
 
+    // Add the line overlay
+    this.$overlay.append(this.linesImg);
+    
     const uncoverGroundPromise = this.uncoverGround();
     await Promise.all(this.players.map(p => p.probingDone()));
     await endingSequenceCallback();

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" x="0px" y="0px" viewBox="0 0 1920 1080">
+  <style type="text/css">
+    .line {
+      stroke: #000000;
+      stroke-width: 1;
+    }
+  </style>
+	<line class="line" x1="90" y1="80" x2="1830" y2="80" />
+	<line class="line" x1="90" y1="1015" x2="1830" y2="1015" />
+</svg>
