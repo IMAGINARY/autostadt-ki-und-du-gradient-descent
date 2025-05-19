@@ -821,7 +821,7 @@ var GamepadControls = /*#__PURE__*/function (_Controls) {
       Array.from(navigator.getGamepads()).filter(function (gp) {
         return gp !== null && gp.index < _this.states.length;
       }).forEach(function (gp) {
-        var _gp$buttons$14$presse, _gp$buttons$, _gp$buttons$15$presse, _gp$buttons$2, _gp$buttons$1$pressed, _gp$buttons$3, _gp$buttons$2$pressed, _gp$buttons$4, _gp$buttons$8$pressed, _gp$buttons$5;
+        var _gp$buttons$14$presse, _gp$buttons$, _gp$buttons$15$presse, _gp$buttons$2, _gp$buttons$1$pressed, _gp$buttons$3, _gp$buttons$2$pressed, _gp$buttons$4, _gp$buttons$8$pressed, _gp$buttons$5, _gp$buttons$9$pressed, _gp$buttons$6;
 
         _this.modifyState(gp.index, "left", gp.axes[0] < -0.5 || ((_gp$buttons$14$presse = (_gp$buttons$ = gp.buttons[14]) === null || _gp$buttons$ === void 0 ? void 0 : _gp$buttons$.pressed) !== null && _gp$buttons$14$presse !== void 0 ? _gp$buttons$14$presse : false));
 
@@ -829,7 +829,7 @@ var GamepadControls = /*#__PURE__*/function (_Controls) {
 
         _this.modifyState(gp.index, "action", ((_gp$buttons$1$pressed = (_gp$buttons$3 = gp.buttons[1]) === null || _gp$buttons$3 === void 0 ? void 0 : _gp$buttons$3.pressed) !== null && _gp$buttons$1$pressed !== void 0 ? _gp$buttons$1$pressed : false) || ((_gp$buttons$2$pressed = (_gp$buttons$4 = gp.buttons[2]) === null || _gp$buttons$4 === void 0 ? void 0 : _gp$buttons$4.pressed) !== null && _gp$buttons$2$pressed !== void 0 ? _gp$buttons$2$pressed : false));
 
-        _this.modifyState(gp.index, "language", (_gp$buttons$8$pressed = (_gp$buttons$5 = gp.buttons[8]) === null || _gp$buttons$5 === void 0 ? void 0 : _gp$buttons$5.pressed) !== null && _gp$buttons$8$pressed !== void 0 ? _gp$buttons$8$pressed : false);
+        _this.modifyState(gp.index, "language", ((_gp$buttons$8$pressed = (_gp$buttons$5 = gp.buttons[8]) === null || _gp$buttons$5 === void 0 ? void 0 : _gp$buttons$5.pressed) !== null && _gp$buttons$8$pressed !== void 0 ? _gp$buttons$8$pressed : false) || ((_gp$buttons$9$pressed = (_gp$buttons$6 = gp.buttons[9]) === null || _gp$buttons$6 === void 0 ? void 0 : _gp$buttons$6.pressed) !== null && _gp$buttons$9$pressed !== void 0 ? _gp$buttons$9$pressed : false));
       });
     }
     /**
@@ -1304,6 +1304,22 @@ var BotTypeMode = /*#__PURE__*/function (_MenuMode) {
   }
 
   _createClass(BotTypeMode, [{
+    key: "handleEnterMode",
+    value: function handleEnterMode() {
+      _get(_getPrototypeOf(BotTypeMode.prototype), "handleEnterMode", this).call(this);
+
+      var $main = $('.main');
+      $main.addClass('mode-menu-bottype');
+    }
+  }, {
+    key: "handleExitMode",
+    value: function handleExitMode() {
+      var $main = $('.main');
+      $main.removeClass('mode-menu-bottype');
+
+      _get(_getPrototypeOf(BotTypeMode.prototype), "handleExitMode", this).call(this);
+    }
+  }, {
     key: "getMenuTitleKeys",
     value: function getMenuTitleKeys() {
       return ['choose-bot-type', this.game.config.botTypeLabels];
@@ -1453,33 +1469,12 @@ var DemoMode = /*#__PURE__*/function (_PlayMode) {
 
   _createClass(DemoMode, [{
     key: "handleEnterMode",
-    value: function () {
-      var _handleEnterMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _get(_getPrototypeOf(DemoMode.prototype), "handleEnterMode", this).call(this);
+    value: function handleEnterMode() {
+      _get(_getPrototypeOf(DemoMode.prototype), "handleEnterMode", this).call(this);
 
-              case 2:
-                this.elapsedTime = 0;
-                this.showDemoText();
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function handleEnterMode() {
-        return _handleEnterMode.apply(this, arguments);
-      }
-
-      return handleEnterMode;
-    }()
+      this.elapsedTime = 0;
+      this.showDemoText();
+    }
   }, {
     key: "handleInputs",
     value: function handleInputs(inputs, lastInputs, delta, ts) {
@@ -1527,16 +1522,16 @@ var DemoMode = /*#__PURE__*/function (_PlayMode) {
   }, {
     key: "gameOver",
     value: function () {
-      var _gameOver = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(endingSequenceCallback) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      var _gameOver = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(endingSequenceCallback) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }));
 
       function gameOver(_x) {
@@ -1548,22 +1543,22 @@ var DemoMode = /*#__PURE__*/function (_PlayMode) {
   }, {
     key: "demoOver",
     value: function () {
-      var _demoOver = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      var _demoOver = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context3.next = 2;
+                _context2.next = 2;
                 return Promise.all(this.players.map(function (p) {
                   return p.probingDone();
                 }));
 
               case 2:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function demoOver() {
@@ -1575,19 +1570,19 @@ var DemoMode = /*#__PURE__*/function (_PlayMode) {
   }, {
     key: "showGameStartSequence",
     value: function () {
-      var _showGameStartSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      var _showGameStartSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                return _context4.abrupt("return", null);
+                return _context3.abrupt("return", null);
 
               case 1:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }));
 
       function showGameStartSequence() {
@@ -1686,6 +1681,10 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -1712,45 +1711,22 @@ var MenuMode = /*#__PURE__*/function (_GameMode) {
   }
 
   _createClass(MenuMode, [{
-    key: "handleEnterMode",
+    key: "preLoadAssets",
     value: function () {
-      var _handleEnterMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var $overlay, menuItemsSpecs, menuItemTipsSpecs, $menuTitle, $selector, i, menuItemSpec, $menuItem;
+      var _preLoadAssets = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                $overlay = $(this.game.overlay);
-                menuItemsSpecs = this.getMenuItems();
-                menuItemTipsSpecs = this.getMenuItemTips();
-                this.selectedIndex = this.getDefaultItemIndex();
-                $menuTitle = $('<div class="text text-center menu-title" />').appendTo($overlay);
+                _context.t0 = $;
+                _context.next = 3;
+                return this.game.loadImgElement('assets/img/menu-bg.png');
 
-                _i18n.localeInit.apply(void 0, [$menuTitle].concat(_toConsumableArray(this.getMenuTitleKeys())));
+              case 3:
+                _context.t1 = _context.sent;
+                this.$bg = (0, _context.t0)(_context.t1);
 
-                $selector = $('<div class="menu-selector" />').addClass("menu-selector-with-".concat(menuItemsSpecs.length)).appendTo($overlay); // Build menu items
-
-                for (i = 0; i < menuItemsSpecs.length; ++i) {
-                  menuItemSpec = menuItemsSpecs[i];
-                  $menuItem = $('<div class="item" />').addClass("item-".concat(i)).toggleClass('selected', this.selectedIndex === i).appendTo($selector);
-
-                  if (typeof menuItemSpec === 'string') {
-                    $menuItem.text(menuItemSpec);
-                  } else if (Array.isArray(menuItemSpec)) {
-                    _i18n.localeInit.apply(void 0, [$menuItem].concat(_toConsumableArray(menuItemSpec)));
-                  } else {
-                    console.error("Menu item ".concat(i, " must be of type (string|string[])[]."));
-                  }
-                }
-
-                this.$selectorItems = $selector.children();
-
-                if (menuItemTipsSpecs) {
-                  this.$menuTip = $('<div class="text text-center menu-tip" />').appendTo($overlay);
-                  this.updateMenuTip();
-                }
-
-              case 10:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -1758,12 +1734,56 @@ var MenuMode = /*#__PURE__*/function (_GameMode) {
         }, _callee, this);
       }));
 
-      function handleEnterMode() {
-        return _handleEnterMode.apply(this, arguments);
+      function preLoadAssets() {
+        return _preLoadAssets.apply(this, arguments);
       }
 
-      return handleEnterMode;
+      return preLoadAssets;
     }()
+  }, {
+    key: "handleEnterMode",
+    value: function handleEnterMode() {
+      _get(_getPrototypeOf(MenuMode.prototype), "handleEnterMode", this).call(this);
+
+      var $main = $('.main');
+      $main.addClass('mode-menu');
+      var $overlay = $(this.game.overlay);
+      this.$bg.addClass('menu-bg');
+      this.$bg.appendTo($overlay);
+      var $title = $('<div id="title">');
+      $title.get().forEach(function (e) {
+        return (0, _i18n.localeInit)(e, 'title');
+      });
+      $title.appendTo($overlay);
+      var menuItemsSpecs = this.getMenuItems();
+      var menuItemTipsSpecs = this.getMenuItemTips();
+      this.selectedIndex = this.getDefaultItemIndex();
+      var $menuTitle = $('<div class="text text-center menu-title" />').appendTo($overlay);
+
+      _i18n.localeInit.apply(void 0, [$menuTitle].concat(_toConsumableArray(this.getMenuTitleKeys())));
+
+      var $selector = $('<div class="menu-selector" />').addClass("menu-selector-with-".concat(menuItemsSpecs.length)).appendTo($overlay); // Build menu items
+
+      for (var i = 0; i < menuItemsSpecs.length; ++i) {
+        var menuItemSpec = menuItemsSpecs[i];
+        var $menuItem = $('<div class="item" />').addClass("item-".concat(i)).toggleClass('selected', this.selectedIndex === i).appendTo($selector);
+
+        if (typeof menuItemSpec === 'string') {
+          $menuItem.text(menuItemSpec);
+        } else if (Array.isArray(menuItemSpec)) {
+          _i18n.localeInit.apply(void 0, [$menuItem].concat(_toConsumableArray(menuItemSpec)));
+        } else {
+          console.error("Menu item ".concat(i, " must be of type (string|string[])[]."));
+        }
+      }
+
+      this.$selectorItems = $selector.children();
+
+      if (menuItemTipsSpecs) {
+        this.$menuTip = $('<div class="text text-center menu-tip" />').appendTo($overlay);
+        this.updateMenuTip();
+      }
+    }
   }, {
     key: "updateMenuTip",
     value: function updateMenuTip() {
@@ -1779,25 +1799,13 @@ var MenuMode = /*#__PURE__*/function (_GameMode) {
     }
   }, {
     key: "handleExitMode",
-    value: function () {
-      var _handleExitMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
+    value: function handleExitMode() {
+      // Cleanup timers, etc. created on handleEnterMode
+      var $main = $('.main');
+      $main.removeClass('mode-menu');
 
-      function handleExitMode() {
-        return _handleExitMode.apply(this, arguments);
-      }
-
-      return handleExitMode;
-    }()
+      _get(_getPrototypeOf(MenuMode.prototype), "handleExitMode", this).call(this);
+    }
   }, {
     key: "handleInputs",
     value: function handleInputs(inputs, lastInputs, delta, ts) {
@@ -1953,6 +1961,22 @@ var PlayerNumberMode = /*#__PURE__*/function (_MenuMode) {
   }
 
   _createClass(PlayerNumberMode, [{
+    key: "handleEnterMode",
+    value: function handleEnterMode() {
+      _get(_getPrototypeOf(PlayerNumberMode.prototype), "handleEnterMode", this).call(this);
+
+      var $main = $('.main');
+      $main.addClass('mode-menu-num-players');
+    }
+  }, {
+    key: "handleExitMode",
+    value: function handleExitMode() {
+      var $main = $('.main');
+      $main.removeClass('mode-menu-num-players');
+
+      _get(_getPrototypeOf(PlayerNumberMode.prototype), "handleExitMode", this).call(this);
+    }
+  }, {
     key: "getMenuTitleKeys",
     value: function getMenuTitleKeys() {
       return ['choose-num-players'];
@@ -2031,6 +2055,12 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2040,6 +2070,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2058,18 +2092,20 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 var WATER_HEIGHT_SCALE = 10;
 var NUM_WATER_POINTS = 300;
 var WATER_FPS = 5;
-var WATER_DISTANCE = 260;
+var WATER_DISTANCE = 365;
 var WATER_LOOP_DURATION = 20 * 1000;
 var BOAT_DRAFT = 18;
-var TERRAIN_HEIGHT_SCALE = 300;
+var TERRAIN_HEIGHT_SCALE = 340;
 var NUM_TERRAIN_POINTS = 300;
 var MAX_TERRAIN_EXTREMA = 20;
 var TERRAIN_MARGIN_WIDTH = 0.1;
-var TERRAIN_DISTANCE = 300; // How far should the boat move on user input per ms
+var TERRAIN_DISTANCE = 285; // How far should the boat move on user input per ms
 
 var SPEED_FACTOR = 0.2 / 1000.0;
-var PROBE_SIZE = 10;
-var PROBE_DISTANCE_AT_REST = 0.3;
+var PROBE_SIZE = 15; // must be > 0 for the rope to have a non-zero bounding box area which is required to make gradients work :-(
+
+var PROBE_ROPE_START_X_OFFSET = 0.00001;
+var PROBE_DISTANCE_AT_REST = 0.25;
 var PROBE_MIN_DURATION = 500;
 var PROBE_DELAY = 500;
 var TANGENT_LENGTH = 0.02;
@@ -2110,36 +2146,55 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
     key: "preLoadAssets",
     value: function () {
       var _preLoadAssets = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var _this$game$config$ext,
+            _this2 = this;
+
+        var internalAssetUrls, assetUrls;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return this.game.loadSVGSymbol('assets/img/ship.svg');
+                internalAssetUrls = {
+                  ships: ['assets/img/ship.svg'],
+                  treasureClosed: 'assets/img/treasure-closed.svg',
+                  treasureOpened: 'assets/img/treasure-opened.svg'
+                };
+                assetUrls = _objectSpread(_objectSpread({}, internalAssetUrls), (_this$game$config$ext = this.game.config.externalAssets) !== null && _this$game$config$ext !== void 0 ? _this$game$config$ext : {});
+                _context.next = 4;
+                return Promise.all(assetUrls.ships.map(function (s) {
+                  return _this2.game.loadSVGSymbol(s);
+                }));
 
-              case 2:
-                this.shipSymbol = _context.sent;
-                this.shipSymbol.attr({
-                  overflow: 'visible'
+              case 4:
+                this.shipSymbols = _context.sent;
+                this.shipSymbols.forEach(function (s) {
+                  return s.attr({
+                    overflow: 'visible'
+                  });
                 });
-                _context.next = 6;
-                return this.game.loadSVGSymbol('assets/img/treasure-closed.svg');
+                _context.next = 8;
+                return this.game.loadSVGSymbol(assetUrls.treasureClosed);
 
-              case 6:
+              case 8:
                 this.treasureClosedSymbol = _context.sent;
                 this.treasureClosedSymbol.attr({
                   overflow: 'visible'
                 });
-                _context.next = 10;
-                return this.game.loadSVGSymbol('assets/img/treasure-opened.svg');
+                _context.next = 12;
+                return this.game.loadSVGSymbol(assetUrls.treasureOpened);
 
-              case 10:
+              case 12:
                 this.treasureOpenedSymbol = _context.sent;
                 this.treasureOpenedSymbol.attr({
                   overflow: 'visible'
                 });
+                _context.next = 16;
+                return this.game.loadImgElement('assets/img/lines.svg');
 
-              case 12:
+              case 16:
+                this.linesImg = _context.sent;
+
+              case 17:
               case "end":
                 return _context.stop();
             }
@@ -2155,277 +2210,279 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
     }()
   }, {
     key: "handleEnterMode",
-    value: function () {
-      var _handleEnterMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var _this2 = this;
+    value: function handleEnterMode() {
+      var _this3 = this;
 
-        var _this$game, draw, config, numPlayers, botType, $gameStats, $remainingTimeContainer, $remainingProbesContainer, modeGroup, padRemainingProbes, createPlayer, addBot, botStrategyClass, botStrategy, bot, nextTarget, newTerrainHeights, terrainHeights, terrainPoints, behindGroundGroup, treasure, groundCover;
+      _get(_getPrototypeOf(PlayMode.prototype), "handleEnterMode", this).call(this);
 
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _this$game = this.game, draw = _this$game.draw, config = _this$game.config, numPlayers = _this$game.numPlayers, botType = _this$game.botType;
-                this.isGameOver = false;
-                this.discardInputs = false;
-                this.remainingTime = config.maxTime * 1000;
-                this.tangents = [];
-                this.$overlay = $('<div class="play" />').appendTo(this.game.overlay);
-                $gameStats = $('<div class="game-stats"/>').appendTo(this.$overlay);
-                $remainingTimeContainer = $('<div class="remaining-time"/>').appendTo($gameStats);
-                (0, _i18n.localeInit)($('<span>').appendTo($remainingTimeContainer), 'remaining-time');
-                if (config.maxTime === Number.POSITIVE_INFINITY) $remainingTimeContainer.hide();
-                $remainingProbesContainer = $('<div class="remaining-probes"/>').appendTo($gameStats);
-                (0, _i18n.localeInit)($('<span>').appendTo($remainingProbesContainer), 'remaining-probes');
-                this.$remainingTime = $('<span class="counter"/>').appendTo($remainingTimeContainer);
-                this.$remainingProbes = $('<span />').appendTo($remainingProbesContainer);
-                if (config.maxProbes === Number.POSITIVE_INFINITY) $remainingProbesContainer.hide();
-                this.$endingSequenceContainer = $('<div />').appendTo(this.$overlay);
-                modeGroup = draw.group().addClass('play').addClass('draw').translate(0, WATER_DISTANCE);
+      var $main = $('.main');
+      $main.addClass('mode-play');
+      var _this$game = this.game,
+          draw = _this$game.draw,
+          config = _this$game.config,
+          numPlayers = _this$game.numPlayers,
+          botType = _this$game.botType;
+      this.isGameOver = false;
+      this.discardInputs = false;
+      this.remainingTime = config.maxTime * 1000;
+      this.tangents = [];
+      this.$overlay = $('<div class="play" />').appendTo(this.game.overlay);
+      var $gameStats = $('<div class="game-stats"/>').appendTo(this.$overlay);
+      this.$gameState = $gameStats;
+      var $gameStatsWrapper = $('<div class="game-stats-wrapper"/>').appendTo($gameStats);
+      var $remainingTimeContainer = $('<div class="remaining-time"/>').appendTo($gameStatsWrapper);
+      var $remainingTimeLabel = $('<span class="label"/>');
+      (0, _i18n.localeInit)($remainingTimeLabel, 'remaining-time');
+      $remainingTimeLabel.appendTo($remainingTimeContainer);
+      if (config.maxTime === Number.POSITIVE_INFINITY) $remainingTimeContainer.hide();
+      var $remainingProbesContainer = $('<div class="remaining-probes"/>').appendTo($gameStatsWrapper);
+      this.$remainingTime = $('<span class="counter"/>').appendTo($remainingTimeContainer);
+      if (config.maxProbes === Number.POSITIVE_INFINITY) $remainingProbesContainer.hide();
+      this.$endingSequenceContainer = $('<div />').appendTo(this.$overlay);
+      var modeGroup = draw.group().addClass('play').addClass('draw').translate(0, WATER_DISTANCE);
 
-                padRemainingProbes = function padRemainingProbes(num) {
-                  return pad(num, String(_this2.game.config.maxProbes).length, ' ');
-                };
+      var padRemainingProbes = function padRemainingProbes(num) {
+        return pad(num, String(_this3.game.config.maxProbes).length, ' ');
+      };
 
-                createPlayer = function createPlayer(playerIndex, numPlayers, cssClass) {
-                  var x = (playerIndex + 1) / (numPlayers + 1);
-                  var group = modeGroup.group();
-                  group.addClass(cssClass).transform({
-                    translateX: x * draw.width()
-                  });
-                  var boat = group.use(_this2.shipSymbol).center(0, BOAT_DRAFT);
-                  var probeParent = group.group();
-                  var probe = probeParent.group();
-                  var probeY = TERRAIN_DISTANCE * PROBE_DISTANCE_AT_REST;
-                  var probeRope = probe.line(0, BOAT_DRAFT, 0, probeY - PROBE_SIZE / 2);
-                  var probeCircle = probe.circle(PROBE_SIZE).center(0, probeY);
+      var createPlayer = function createPlayer(playerIndex, numPlayers, cssClass) {
+        var isBot = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+        var x = (playerIndex + 1) / (numPlayers + 1);
+        var group = modeGroup.group();
+        group.addClass(cssClass).transform({
+          translateX: x * draw.width()
+        });
+        var shipSymbolIndex = isBot ? _this3.shipSymbols.length - 1 : playerIndex % _this3.shipSymbols.length;
+        var boat = group.use(_this3.shipSymbols[shipSymbolIndex]).center(0, BOAT_DRAFT);
+        var probeRopeGradient = modeGroup.gradient('linear', function (add) {
+          add.stop({
+            offset: 0
+          }).addClass('probe-rope-gradient-stop-0');
+          add.stop({
+            offset: 1
+          }).addClass('probe-rope-gradient-stop-20');
+          add.stop({
+            offset: 1
+          }).addClass('probe-rope-gradient-stop-100');
+        }).from(0, 0).to(0, 1).addClass(cssClass);
+        var probeParent = group.group();
+        var probe = probeParent.group();
+        var probeY = TERRAIN_DISTANCE * PROBE_DISTANCE_AT_REST;
+        var probeRope = probe.line(PROBE_ROPE_START_X_OFFSET, BOAT_DRAFT, 0, probeY - PROBE_SIZE / 2).stroke(probeRopeGradient).addClass("probe-rope");
+        var probeCircle = probe.circle(PROBE_SIZE).center(0, probeY).addClass("probe");
 
-                  var doProbe = function doProbe(terrainHeight) {
-                    var _this3 = this;
+        var doProbe = function doProbe(terrainHeight) {
+          var _this4 = this;
 
-                    this.probing = true;
-                    this.remainingProbes = Math.max(0, this.remainingProbes - 1);
-                    this.$remainingProbes.text(padRemainingProbes(this.remainingProbes));
-                    if (this.remainingProbes === 0) this.$remainingProbes.addClass("blinking");
-                    var probeHeight = TERRAIN_DISTANCE + TERRAIN_HEIGHT_SCALE * terrainHeight;
-                    var probeDuration = probeHeight * (PROBE_MIN_DURATION / TERRAIN_DISTANCE);
-                    var probeDown = probeCircle.animate(probeDuration, 0, 'now').cy(probeHeight);
-                    var probeRopeDown = probeRope.animate(probeDuration, 0, 'now').plot(0, BOAT_DRAFT, 0, probeHeight - PROBE_SIZE / 2);
-                    var yUp = this.remainingProbes > 0 ? TERRAIN_DISTANCE * PROBE_DISTANCE_AT_REST : BOAT_DRAFT + PROBE_SIZE;
-                    var probeUp = probeDown.animate(probeDuration, PROBE_DELAY).cy(yUp).after(function () {
-                      return _this3.probing = false;
-                    });
-                    var probeRopeUp = probeRopeDown.animate(probeDuration, PROBE_DELAY).plot(0, BOAT_DRAFT, 0, yUp - PROBE_SIZE / 2);
-                    return {
-                      down: new Promise(function (resolve) {
-                        return probeDown.after(resolve);
-                      }),
-                      up: new Promise(function (resolve) {
-                        return probeUp.after(resolve);
-                      })
-                    };
-                  }; // Add an element for displaying the number of remaining probes
+          this.probing = true;
+          this.remainingProbes = Math.max(0, this.remainingProbes - 1);
+          this.$remainingProbes.text(padRemainingProbes(this.remainingProbes));
+          if (this.remainingProbes === 0) this.$remainingProbes.addClass("blinking");
+          var probeHeight = TERRAIN_DISTANCE + TERRAIN_HEIGHT_SCALE * terrainHeight;
+          var probeDuration = probeHeight * (PROBE_MIN_DURATION / TERRAIN_DISTANCE);
+          var probeDown = probeCircle.animate(probeDuration, 0, 'now').cy(probeHeight);
+          var probeRopeDown = probeRope.animate(probeDuration, 0, 'now').plot(PROBE_ROPE_START_X_OFFSET, BOAT_DRAFT, 0, probeHeight - PROBE_SIZE / 2);
+          var yUp = this.remainingProbes > 0 ? TERRAIN_DISTANCE * PROBE_DISTANCE_AT_REST : BOAT_DRAFT + PROBE_SIZE;
+          var probeUp = probeDown.animate(probeDuration, PROBE_DELAY).cy(yUp).after(function () {
+            return _this4.probing = false;
+          });
+          var probeRopeUp = probeRopeDown.animate(probeDuration, PROBE_DELAY).plot(PROBE_ROPE_START_X_OFFSET, BOAT_DRAFT, 0, yUp - PROBE_SIZE / 2);
+          return {
+            down: new Promise(function (resolve) {
+              return probeDown.after(resolve);
+            }),
+            up: new Promise(function (resolve) {
+              return probeUp.after(resolve);
+            })
+          };
+        }; // Add an element for displaying the number of remaining probes
 
 
-                  var $remainingProbes = $("<span class=\"counter ".concat(cssClass, "\">").concat(config.maxProbes, "</span>")).appendTo(_this2.$remainingProbes); // Move boat in front of the probe
+        var $myRemainingProbesContainer = $('<span>');
+        $myRemainingProbesContainer.addClass(cssClass);
+        $myRemainingProbesContainer.appendTo($remainingProbesContainer);
+        var $myRemainingProbesLabel = $('<span class="label">');
+        (0, _i18n.localeInit)($myRemainingProbesLabel, 'remaining-probes');
+        $myRemainingProbesLabel.appendTo($myRemainingProbesContainer);
+        var $myRemainingProbesValue = $("<span class=\"counter\">");
+        $myRemainingProbesValue.text(config.maxProbes);
+        $myRemainingProbesValue.appendTo($myRemainingProbesContainer); // Move boat in front of the probe
 
-                  boat.front();
-                  return {
-                    id: playerIndex,
-                    cssClass: cssClass,
-                    group: group,
-                    boat: boat,
-                    probe: probe,
-                    doProbe: doProbe,
-                    x: x,
-                    lastX: x,
-                    flipX: false,
-                    _probing: false,
-                    _probeEventEmitter: new _events["default"](),
+        boat.front();
+        return {
+          id: playerIndex,
+          cssClass: cssClass,
+          group: group,
+          boat: boat,
+          probe: probe,
+          doProbe: doProbe,
+          x: x,
+          lastX: x,
+          flipX: false,
+          _probing: false,
+          _probeEventEmitter: new _events["default"](),
 
-                    set probing(p) {
-                      var probeTurnedOff = this._probing && !p;
-                      this._probing = p;
-                      if (probeTurnedOff) this._probeEventEmitter.emit("probe-off");
-                    },
+          set probing(p) {
+            var probeTurnedOff = this._probing && !p;
+            this._probing = p;
+            if (probeTurnedOff) this._probeEventEmitter.emit("probe-off");
+          },
 
-                    get probing() {
-                      return this._probing;
-                    },
+          get probing() {
+            return this._probing;
+          },
 
-                    probingDone: function () {
-                      var _probingDone = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-                        var _this4 = this;
+          probingDone: function () {
+            var _probingDone = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this5 = this;
 
-                        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                          while (1) {
-                            switch (_context2.prev = _context2.next) {
-                              case 0:
-                                if (this.probing) {
-                                  _context2.next = 2;
-                                  break;
-                                }
-
-                                return _context2.abrupt("return");
-
-                              case 2:
-                                _context2.next = 4;
-                                return new Promise(function (resolve) {
-                                  return _this4._probeEventEmitter.addListener("probe-off", resolve);
-                                });
-
-                              case 4:
-                              case "end":
-                                return _context2.stop();
-                            }
-                          }
-                        }, _callee2, this);
-                      }));
-
-                      function probingDone() {
-                        return _probingDone.apply(this, arguments);
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      if (this.probing) {
+                        _context2.next = 2;
+                        break;
                       }
 
-                      return probingDone;
-                    }(),
-                    remainingProbes: config.maxProbes,
-                    $remainingProbes: $remainingProbes
-                  };
-                }; // Create a boat for each player
+                      return _context2.abrupt("return");
 
+                    case 2:
+                      _context2.next = 4;
+                      return new Promise(function (resolve) {
+                        return _this5._probeEventEmitter.addListener("probe-off", resolve);
+                      });
 
-                addBot = botType && botType !== 'none';
-                this.players = Array(numPlayers).fill(null).map(function (_, playerIndex) {
-                  return createPlayer(playerIndex, numPlayers + (addBot ? 1 : 0), "player-".concat(playerIndex));
-                });
-
-                if (addBot) {
-                  botStrategyClass = function () {
-                    switch (botType) {
-                      case 'random':
-                        return _random["default"];
-
-                      case 'newton':
-                        return BotStrategyNewton;
-
-                      case 'gradient-descent':
-                        return _gradientDescent["default"];
-
-                      case 'tangent-intersection':
-                        return _tangentIntersection["default"];
-
-                      default:
-                        return _base["default"];
-                    }
-                  }();
-
-                  botStrategy = new botStrategyClass(TERRAIN_MARGIN_WIDTH, 1 - TERRAIN_MARGIN_WIDTH, TREASURE_SIZE);
-                  bot = {};
-                  bot.type = botType;
-                  bot.player = createPlayer(numPlayers, numPlayers + 1, 'player-bot');
-
-                  nextTarget = function nextTarget() {
-                    return botStrategy.getNextProbeLocation(_this2.tangents, bot.player, bot.player.id, _this2.players);
-                  };
-
-                  bot.targetX = nextTarget();
-
-                  bot.tangentListener = function () {
-                    return bot.targetX = nextTarget();
-                  };
-
-                  this.players.push(bot.player);
-                  this.events.addListener('new-tangent', bot.tangentListener);
-                  this.bot = bot;
-                } else {
-                  this.bot = null;
+                    case 4:
+                    case "end":
+                      return _context2.stop();
+                  }
                 }
+              }, _callee2, this);
+            }));
 
-                this.water = modeGroup.group().attr('id', 'water').addClass('water');
-                waves.animatedSVGPolyline(this.water, NUM_WATER_POINTS, WATER_LOOP_DURATION / 1000 * WATER_FPS, game.draw.width(), WATER_HEIGHT_SCALE, WATER_LOOP_DURATION);
-                this.groundGroup = modeGroup.group();
-
-                newTerrainHeights = function newTerrainHeights() {
-                  var terrainOptions = {
-                    marginWidth: TERRAIN_MARGIN_WIDTH,
-                    tilt: game.config.maxDepthTilt
-                  };
-                  return (0, _terrain["default"])(MAX_TERRAIN_EXTREMA, NUM_TERRAIN_POINTS, terrainOptions);
-                };
-
-                terrainHeights = game.map ? game.map : newTerrainHeights();
-                terrainPoints = terrainHeights.map(function (h, i) {
-                  return [draw.width() * (i / (terrainHeights.length - 1)), TERRAIN_HEIGHT_SCALE * h];
-                }).concat([[2 * draw.width(), 0], [2 * draw.width(), draw.height()], [-draw.width(), draw.height()], [-draw.width(), 0]]);
-                this.terrainHeights = terrainHeights;
-                this.treasureLocation = this.locateTreasure();
-
-                _debugConsole["default"].log("Map:", terrainHeights);
-
-                _debugConsole["default"].log("Treasure location:", this.treasureLocation);
-
-                behindGroundGroup = this.groundGroup.group();
-                treasure = behindGroundGroup.group().addClass('treasure').transform({
-                  translateX: this.treasureLocation.x * draw.width(),
-                  translateY: TERRAIN_DISTANCE + this.treasureLocation.y * TERRAIN_HEIGHT_SCALE
-                });
-                this.treasureClosed = treasure.use(this.treasureClosedSymbol);
-                this.treasureOpened = treasure.use(this.treasureOpenedSymbol).hide();
-                this.ground = this.groundGroup.polygon(terrainPoints).fill('black').addClass('ground').translate(0, TERRAIN_DISTANCE);
-                groundCover = this.groundGroup.group();
-                this.groundCoverLeft = groundCover.rect(draw.width(), draw.height()).addClass('ground-cover').move(Math.ceil(draw.width() * (this.treasureLocation.x - 1)), -TERRAIN_HEIGHT_SCALE / 2);
-                this.groundCoverRight = groundCover.rect(draw.width(), draw.height()).addClass('ground-cover').move(Math.floor(draw.width() * this.treasureLocation.x), -TERRAIN_HEIGHT_SCALE / 2);
-                if (config.showSeaFloor) groundCover.hide();
-                this.groundGroup.back();
-                this.tangentGroup = modeGroup.group().translate(0, TERRAIN_DISTANCE);
-                this.discardInputs = true;
-                this.showGameStartSequence((0, _i18n.localeInit)($('<span>'), 'objective'), (0, _i18n.localeInit)($('<span>'), 'go'), function () {
-                  return _this2.discardInputs = false;
-                });
-
-              case 45:
-              case "end":
-                return _context3.stop();
+            function probingDone() {
+              return _probingDone.apply(this, arguments);
             }
-          }
-        }, _callee3, this);
-      }));
 
-      function handleEnterMode() {
-        return _handleEnterMode.apply(this, arguments);
+            return probingDone;
+          }(),
+          hideProbe: function hideProbe() {
+            probe.hide();
+          },
+          remainingProbes: config.maxProbes,
+          $remainingProbes: $myRemainingProbesValue
+        };
+      }; // Create a boat for each player
+
+
+      var addBot = botType && botType !== 'none';
+      this.players = Array(numPlayers).fill(null).map(function (_, playerIndex) {
+        return createPlayer(playerIndex, numPlayers + (addBot ? 1 : 0), "player-".concat(playerIndex));
+      });
+
+      if (addBot) {
+        var botStrategyClass = function () {
+          switch (botType) {
+            case 'random':
+              return _random["default"];
+
+            case 'newton':
+              return BotStrategyNewton;
+
+            case 'gradient-descent':
+              return _gradientDescent["default"];
+
+            case 'tangent-intersection':
+              return _tangentIntersection["default"];
+
+            default:
+              return _base["default"];
+          }
+        }();
+
+        var botStrategy = new botStrategyClass(TERRAIN_MARGIN_WIDTH, 1 - TERRAIN_MARGIN_WIDTH, TREASURE_SIZE);
+        var bot = {};
+        bot.type = botType;
+        bot.player = createPlayer(numPlayers, numPlayers + 1, 'player-bot', true);
+
+        var nextTarget = function nextTarget() {
+          return botStrategy.getNextProbeLocation(_this3.tangents, bot.player, bot.player.id, _this3.players);
+        };
+
+        bot.targetX = nextTarget();
+
+        bot.tangentListener = function () {
+          return bot.targetX = nextTarget();
+        };
+
+        this.players.push(bot.player);
+        this.events.addListener('new-tangent', bot.tangentListener);
+        this.bot = bot;
+      } else {
+        this.bot = null;
       }
 
-      return handleEnterMode;
-    }()
+      this.water = modeGroup.group().attr('id', 'water').addClass('water');
+      var extraPoints = [[game.draw.width() + 100, 0], [game.draw.width() + 100, game.draw.height() + 100], [-100, game.draw.height() + 100], [-100, 0]];
+      waves.animatedSVGPolyline(this.water, NUM_WATER_POINTS, WATER_LOOP_DURATION / 1000 * WATER_FPS, game.draw.width(), WATER_HEIGHT_SCALE, WATER_LOOP_DURATION, extraPoints, true);
+      this.groundGroup = modeGroup.group();
+
+      var newTerrainHeights = function newTerrainHeights() {
+        var terrainOptions = {
+          marginWidth: TERRAIN_MARGIN_WIDTH,
+          tilt: game.config.maxDepthTilt
+        };
+        return (0, _terrain["default"])(MAX_TERRAIN_EXTREMA, NUM_TERRAIN_POINTS, terrainOptions);
+      };
+
+      var terrainHeights = game.map ? game.map : newTerrainHeights();
+      var terrainPoints = terrainHeights.map(function (h, i) {
+        return [draw.width() * (i / (terrainHeights.length - 1)), TERRAIN_HEIGHT_SCALE * h];
+      }).concat([[2 * draw.width(), 0], [2 * draw.width(), draw.height()], [-draw.width(), draw.height()], [-draw.width(), 0]]);
+      this.terrainHeights = terrainHeights;
+      this.treasureLocation = this.locateTreasure();
+
+      _debugConsole["default"].log("Map:", terrainHeights);
+
+      _debugConsole["default"].log("Treasure location:", this.treasureLocation);
+
+      this.treasureGroup = modeGroup.group().addClass('treasure').transform({
+        translateX: this.treasureLocation.x * draw.width(),
+        translateY: TERRAIN_DISTANCE + this.treasureLocation.y * TERRAIN_HEIGHT_SCALE
+      });
+      this.treasureClosed = this.treasureGroup.use(this.treasureClosedSymbol).hide();
+      this.treasureOpened = this.treasureGroup.use(this.treasureOpenedSymbol).hide();
+      this.ground = this.groundGroup.polygon(terrainPoints).fill('black').addClass('ground').translate(0, TERRAIN_DISTANCE);
+      this.groundGroup.addClass("ground-group");
+      if (!config.showSeaFloor) this.groundGroup.addClass("clip");
+      this.groundGroup.node.style.setProperty('--clip-center-x', "".concat((1 + this.treasureLocation.x) * draw.width(), "px")); // Uncomment to draw a box around the terrain area - useful for positioning the terrain and other UI element
+      // this.groundGroup.rect(draw.width(), TERRAIN_HEIGHT_SCALE).move(0, TERRAIN_DISTANCE).stroke("black");
+
+      this.tangentGroup = modeGroup.group().translate(0, TERRAIN_DISTANCE); // Set z ordering of elements
+
+      [this.water, this.groundGroup, this.tangentGroup, this.treasureGroup].forEach(function (e) {
+        return e.front();
+      });
+      this.discardInputs = true;
+      this.showGameStartSequence((0, _i18n.localeInit)($('<span>'), 'objective'), (0, _i18n.localeInit)($('<span>'), 'go'), function () {
+        return _this3.discardInputs = false;
+      });
+    }
   }, {
     key: "handleExitMode",
-    value: function () {
-      var _handleExitMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                // Cleanup timers, etc. created on handleEnterMode
-                if (this.bot !== null) this.events.removeListener('new-tangent', this.bot.tangentListener);
+    value: function handleExitMode() {
+      // Cleanup timers, etc. created on handleEnterMode
+      if (this.bot !== null) this.events.removeListener('new-tangent', this.bot.tangentListener);
+      var $main = $('.main');
+      $main.removeClass('mode-play');
 
-              case 1:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function handleExitMode() {
-        return _handleExitMode.apply(this, arguments);
-      }
-
-      return handleExitMode;
-    }()
+      _get(_getPrototypeOf(PlayMode.prototype), "handleExitMode", this).call(this);
+    }
   }, {
     key: "handleInputs",
     value: function handleInputs(inputs, lastInputs, delta, ts) {
-      var _this5 = this;
+      var _this6 = this;
 
       // Move the boats or check if they're lowering the probe
       var _this$game2 = this.game,
@@ -2459,19 +2516,19 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
       if (this.remainingTime === 0) {
         _debugConsole["default"].log("Time is up - GAME OVER!");
 
-        this.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        this.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
-              switch (_context5.prev = _context5.next) {
+              switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context5.abrupt("return", _this5.showLoseSequenceTimeIsUp());
+                  return _context3.abrupt("return", _this6.showLoseSequenceTimeIsUp());
 
                 case 1:
                 case "end":
-                  return _context5.stop();
+                  return _context3.stop();
               }
             }
-          }, _callee5);
+          }, _callee3);
         })));
         return;
       } else if (this.players.reduce(function (a, c) {
@@ -2484,19 +2541,19 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
         if (!anyoneProbing) {
           _debugConsole["default"].log("No probes left - GAME OVER!");
 
-          this.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          this.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
-                    return _context6.abrupt("return", _this5.showLoseSequenceNoProbesLeft());
+                    return _context4.abrupt("return", _this6.showLoseSequenceNoProbesLeft());
 
                   case 1:
                   case "end":
-                    return _context6.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee6);
+            }, _callee4);
           })));
           return;
         }
@@ -2521,14 +2578,14 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "processInputs",
     value: function processInputs(inputs, lastInputs, delta, ts) {
-      var _this6 = this;
+      var _this7 = this;
 
       inputs.forEach(function (input, playerIndex) {
         var lastInput = lastInputs[playerIndex];
         var action = actionPressed(input, lastInput);
-        var player = _this6.players[playerIndex];
+        var player = _this7.players[playerIndex];
 
-        if (player && !player.probing && !_this6.isGameOver) {
+        if (player && !player.probing && !_this7.isGameOver) {
           player.lastX = player.x;
           player.x += SPEED_FACTOR * (delta * input.direction);
           player.x = Math.min(Math.max(TERRAIN_MARGIN_WIDTH, player.x), 1.0 - TERRAIN_MARGIN_WIDTH); // TODO: Limit bot position to bot.targetX
@@ -2538,7 +2595,7 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
           if (action && player.remainingProbes > 0) {
             // Switch to probe mode
             // Lower the probe, wait and raise it again
-            var terrainHeight = _this6.terrainHeight(player.x);
+            var terrainHeight = _this7.terrainHeight(player.x);
 
             var _player$doProbe = player.doProbe(terrainHeight),
                 down = _player$doProbe.down,
@@ -2546,43 +2603,43 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
 
 
             down.then(function () {
-              return _this6.addTangent(player);
+              return _this7.addTangent(player);
             });
-            var treasureFound = Math.abs(player.x - _this6.treasureLocation.x) <= TREASURE_SIZE / 2;
-            down.then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            var treasureFound = Math.abs(player.x - _this7.treasureLocation.x) <= TREASURE_SIZE / 2;
+            down.then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context8.prev = _context8.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      if (!(treasureFound && !_this6.isGameOver)) {
-                        _context8.next = 4;
+                      if (!(treasureFound && !_this7.isGameOver)) {
+                        _context6.next = 4;
                         break;
                       }
 
                       _debugConsole["default"].log("Treasure found - GAME OVER!");
 
-                      _context8.next = 4;
-                      return _this6.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-                        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                      _context6.next = 4;
+                      return _this7.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                        return regeneratorRuntime.wrap(function _callee5$(_context5) {
                           while (1) {
-                            switch (_context7.prev = _context7.next) {
+                            switch (_context5.prev = _context5.next) {
                               case 0:
-                                return _context7.abrupt("return", _this6.showWinSequence(player));
+                                return _context5.abrupt("return", _this7.showWinSequence(player));
 
                               case 1:
                               case "end":
-                                return _context7.stop();
+                                return _context5.stop();
                             }
                           }
-                        }, _callee7);
+                        }, _callee5);
                       })));
 
                     case 4:
                     case "end":
-                      return _context8.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee8);
+              }, _callee6);
             })));
 
             _debugConsole["default"].log("Player ".concat(playerIndex, " is probing at:"), {
@@ -2596,17 +2653,13 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "draw",
     value: function draw(delta, ts) {
-      var _this7 = this;
-
       var draw = this.game.draw; // Move boats
       // Draw bottom
       // etc...
 
-      var padRemainingTime = function padRemainingTime(num) {
-        return pad(num, String(_this7.game.config.maxTime).length, ' ');
-      };
-
-      var remainingTimeText = padRemainingTime(Math.ceil(this.remainingTime / 1000.0));
+      var minutes = Math.floor((this.remainingTime / 1000 + 1) / 60);
+      var seconds = Math.ceil(this.remainingTime / 1000 % 60) % 60;
+      var remainingTimeText = "".concat(minutes).padStart(2, '0') + ':' + "".concat(seconds).padStart(2, '0');
 
       if (remainingTimeText !== this.$remainingTime.text()) {
         this.$remainingTime.text(remainingTimeText);
@@ -2698,37 +2751,46 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "gameOver",
     value: function () {
-      var _gameOver = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(endingSequenceCallback) {
+      var _gameOver = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(endingSequenceCallback) {
         var uncoverGroundPromise;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 // The game is now over, so a player that lowered the probe later can not win anymore.
                 this.isGameOver = true; // Disable all inputs until the ending sequence is over.
 
                 this.discardInputs = true;
+                this.treasureClosed.show(); // Hide the game state
+
+                this.$gameState.hide(); // Add the line overlay
+
+                this.$overlay.append(this.linesImg);
                 uncoverGroundPromise = this.uncoverGround();
-                _context9.next = 5;
+                _context7.next = 8;
                 return Promise.all(this.players.map(function (p) {
                   return p.probingDone();
                 }));
 
-              case 5:
-                _context9.next = 7;
+              case 8:
+                // Hide the probes
+                this.players.forEach(function (p) {
+                  return p.hideProbe();
+                });
+                _context7.next = 11;
                 return endingSequenceCallback();
 
-              case 7:
+              case 11:
                 this.discardInputs = false;
-                _context9.next = 10;
+                _context7.next = 14;
                 return uncoverGroundPromise;
 
-              case 10:
+              case 14:
               case "end":
-                return _context9.stop();
+                return _context7.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee7, this);
       }));
 
       function gameOver(_x) {
@@ -2740,56 +2802,32 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "uncoverGround",
     value: function () {
-      var _uncoverGround = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+      var _uncoverGround = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
         var duration,
             draw,
-            circularEaseIn,
-            animateDx,
-            animateDxPromise,
-            _args10 = arguments;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            groundGroupStyle,
+            _args8 = arguments;
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
-                duration = _args10.length > 0 && _args10[0] !== undefined ? _args10[0] : UNCOVER_DURATION;
-                draw = this.game.draw;
+                duration = _args8.length > 0 && _args8[0] !== undefined ? _args8[0] : UNCOVER_DURATION;
+                draw = this.game.draw; // uncover using a CSS transition
 
-                if (!(duration === 0)) {
-                  _context10.next = 7;
-                  break;
-                }
+                groundGroupStyle = this.groundGroup.node.style;
+                groundGroupStyle.setProperty('--clip-transition-duration', "".concat(duration, "ms"));
+                groundGroupStyle.setProperty('--clip-width', "".concat(draw.width() * 2, "px")); // TODO: Wait for the CSS transition to end instead of using a timeout.
 
-                // uncover immediately
-                this.groundCoverLeft.dx(-draw.width());
-                this.groundCoverRight.dx(draw.width());
-                _context10.next = 11;
-                break;
+                return _context8.abrupt("return", new Promise(function (resolve) {
+                  return setTimeout(resolve, duration);
+                }));
 
-              case 7:
-                // uncover using an animation
-                // (using an animation with duration 0 still takes > 0s for unknown reasons)
-                circularEaseIn = function circularEaseIn(pos) {
-                  return -(Math.sqrt(1 - pos * pos) - 1);
-                };
-
-                animateDx = function animateDx(e, dx) {
-                  return e.animate(duration).dx(dx);
-                };
-
-                animateDxPromise = function animateDxPromise(e, dx) {
-                  return new Promise(function (resolve) {
-                    return animateDx(e, dx).after(resolve);
-                  });
-                };
-
-                return _context10.abrupt("return", Promise.all([animateDxPromise(this.groundCoverLeft, -draw.width()), animateDxPromise(this.groundCoverRight, draw.width())]));
-
-              case 11:
+              case 6:
               case "end":
-                return _context10.stop();
+                return _context8.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee8, this);
       }));
 
       function uncoverGround() {
@@ -2801,70 +2839,45 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "showGameStartSequence",
     value: function () {
-      var _showGameStartSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(firstMessageElem, secondMessageElem) {
+      var _showGameStartSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(firstMessageElem, secondMessageElem) {
         var secondMessageCallback,
             cssClasses,
-            draw,
-            delay,
             $firstMessageDiv,
             $secondMessageDiv,
             $startSequenceDiv,
-            top,
-            $announcementAnchor,
-            _args11 = arguments;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            _args9 = arguments;
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
-                secondMessageCallback = _args11.length > 2 && _args11[2] !== undefined ? _args11[2] : Function.prototype;
-                cssClasses = _args11.length > 3 && _args11[3] !== undefined ? _args11[3] : [];
-                draw = this.game.draw;
-
-                delay = function delay(ms) {
-                  return new Promise(function (resolve) {
-                    return setTimeout(resolve, ms);
-                  });
-                };
-
-                $firstMessageDiv = $('<div class="line">').append(firstMessageElem);
-                $secondMessageDiv = $('<div class="line">').append(secondMessageElem).css('visibility', 'hidden');
-                $startSequenceDiv = $('<div class="announcement-sequences-text" />').addClass(cssClasses).append([$firstMessageDiv, $('<br>'), $secondMessageDiv]);
-                top = 100 * (WATER_DISTANCE + TERRAIN_DISTANCE) / draw.height();
-                $announcementAnchor = $('<div class="announcement-sequences-text-anchor" />').css({
-                  left: "50%",
-                  top: "".concat(top, "%"),
-                  width: "0px",
-                  height: "0px"
-                });
-                _context11.next = 11;
+                secondMessageCallback = _args9.length > 2 && _args9[2] !== undefined ? _args9[2] : Function.prototype;
+                cssClasses = _args9.length > 3 && _args9[3] !== undefined ? _args9[3] : [];
+                $firstMessageDiv = $('<div class="line line-1">').append(firstMessageElem);
+                $secondMessageDiv = $('<div class="line line-2">').append(secondMessageElem).css('visibility', 'hidden');
+                $startSequenceDiv = $('<div class="announcement-sequences-text game-start" />').addClass(cssClasses).append([$firstMessageDiv, $secondMessageDiv]);
+                _context9.next = 7;
                 return delay(START_SEQUENCE_FST_DELAY);
 
-              case 11:
-                this.$endingSequenceContainer.empty().append([$announcementAnchor, $startSequenceDiv]); // popper.js places the ending sequence text in a popup-like fashion above the announcement
-                // anchor and makes sure that is does not move off the screen if the anchor is to close to a
-                // screen edge.
-
-                createAutoUpdatingPopper($announcementAnchor.get(0), $startSequenceDiv.get(0), {
-                  placement: 'top'
-                });
-                _context11.next = 15;
+              case 7:
+                this.$endingSequenceContainer.empty().append($startSequenceDiv);
+                _context9.next = 10;
                 return delay(START_SEQUENCE_AFTER_FST_DELAY);
 
-              case 15:
+              case 10:
                 $secondMessageDiv.css("visibility", "visible");
                 secondMessageCallback();
-                _context11.next = 19;
+                _context9.next = 14;
                 return delay(START_SEQUENCE_AFTER_SND_DELAY);
 
-              case 19:
+              case 14:
                 this.$endingSequenceContainer.empty();
 
-              case 20:
+              case 15:
               case "end":
-                return _context11.stop();
+                return _context9.stop();
             }
           }
-        }, _callee11, this);
+        }, _callee9, this);
       }));
 
       function showGameStartSequence(_x2, _x3) {
@@ -2876,37 +2889,49 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "showWinSequence",
     value: function () {
-      var _showWinSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(winner) {
-        var _this8 = this;
-
-        var $winAnnouncement, randomIdx, $treasure, openTreaureChest;
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+      var _showWinSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(winner) {
+        var draw, left, top, $winAnnouncement, randomIdx, $treasure, $firstMessageDiv, $secondMessageDiv, $container, $endingSequenceDiv;
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
-                $winAnnouncement = $('<span>').append((0, _i18n.localeInit)($('<span>'), 'win-announcement-begin'), $('<span>').text(winner.id + 1), (0, _i18n.localeInit)($('<span>'), 'win-announcement-end'));
+                draw = this.game.draw;
+                left = winner.x * draw.width();
+                top = WATER_DISTANCE + BOAT_DRAFT;
+                $winAnnouncement = $('<span>').append((0, _i18n.localeInit)($('<span class="win-announcement-part-1">'), 'win-announcement-part-1'), (0, _i18n.localeInit)($('<span class="win-announcement-part-2">'), 'win-announcement-part-2'), $('<span class="win-announcement-player">').text(winner.id + 1), (0, _i18n.localeInit)($('<span class="win-announcement-part-3">'), 'win-announcement-part-3'));
 
                 randomIdx = function randomIdx(arr) {
                   return Math.floor(Math.random() * (arr.length - 1));
                 };
 
                 $treasure = (0, _i18n.localeInit)($('<span>'), 'treasures', randomIdx(IMAGINARY.i18n.t('treasures')));
+                $firstMessageDiv = $('<div class="line">').append($winAnnouncement);
+                $secondMessageDiv = $('<div class="line">').append($treasure).css('visibility', 'hidden');
+                $container = $('<div>').append([$firstMessageDiv, $secondMessageDiv]);
+                $endingSequenceDiv = $('<div class="announcement-sequences-text bubble game-won" />').addClass(left < draw.width() / 2 ? 'arrow-left' : 'arrow-right').css({
+                  '--anchor-x': "".concat(left, "px"),
+                  '--anchor-y': "".concat(top, "px")
+                }).append($container);
+                _context10.next = 12;
+                return delay(ENDING_SEQUENCE_FST_DELAY);
 
-                openTreaureChest = function openTreaureChest() {
-                  _this8.treasureOpened.show();
+              case 12:
+                this.$endingSequenceContainer.empty().append($endingSequenceDiv);
+                $secondMessageDiv.css("visibility", "visible");
+                this.treasureOpened.show();
+                this.treasureClosed.hide();
+                _context10.next = 18;
+                return delay(ENDING_SEQUENCE_RESTART_DELAY);
 
-                  _this8.treasureClosed.hide();
-                };
+              case 18:
+                this.showRestartHint();
 
-                _context12.next = 6;
-                return this.showGameOverSequence($winAnnouncement, $treasure, openTreaureChest, [winner.cssClass]);
-
-              case 6:
+              case 19:
               case "end":
-                return _context12.stop();
+                return _context10.stop();
             }
           }
-        }, _callee12, this);
+        }, _callee10, this);
       }));
 
       function showWinSequence(_x4) {
@@ -2918,20 +2943,20 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "showLoseSequenceTimeIsUp",
     value: function () {
-      var _showLoseSequenceTimeIsUp = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+      var _showLoseSequenceTimeIsUp = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
-                _context13.next = 2;
-                return this.showGameOverSequence((0, _i18n.localeInit)($('<span>'), 'time-is-up'), (0, _i18n.localeInit)($('<span>'), 'game-over'));
+                _context11.next = 2;
+                return this.showLoseSequence((0, _i18n.localeInit)($('<span>'), 'time-is-up'), (0, _i18n.localeInit)($('<span>'), 'game-over'));
 
               case 2:
               case "end":
-                return _context13.stop();
+                return _context11.stop();
             }
           }
-        }, _callee13, this);
+        }, _callee11, this);
       }));
 
       function showLoseSequenceTimeIsUp() {
@@ -2943,20 +2968,20 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "showLoseSequenceNoProbesLeft",
     value: function () {
-      var _showLoseSequenceNoProbesLeft = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+      var _showLoseSequenceNoProbesLeft = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context14.prev = _context14.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
-                _context14.next = 2;
-                return this.showGameOverSequence((0, _i18n.localeInit)($('<span>'), 'no-probes-left'), (0, _i18n.localeInit)($('<span>'), 'game-over'));
+                _context12.next = 2;
+                return this.showLoseSequence((0, _i18n.localeInit)($('<span>'), 'no-probes-left'), (0, _i18n.localeInit)($('<span>'), 'game-over'));
 
               case 2:
               case "end":
-                return _context14.stop();
+                return _context12.stop();
             }
           }
-        }, _callee14, this);
+        }, _callee12, this);
       }));
 
       function showLoseSequenceNoProbesLeft() {
@@ -2966,85 +2991,69 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
       return showLoseSequenceNoProbesLeft;
     }()
   }, {
-    key: "showGameOverSequence",
+    key: "showLoseSequence",
     value: function () {
-      var _showGameOverSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(firstMessageElem, secondMessageElem) {
+      var _showLoseSequence = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(firstMessageElem, secondMessageElem) {
         var secondMessageCallback,
             cssClasses,
-            draw,
-            delay,
             $firstMessageDiv,
             $secondMessageDiv,
-            $restartDiv,
-            $endingSequenceDiv,
-            left,
-            top,
-            $announcementAnchor,
-            _args15 = arguments;
-        return regeneratorRuntime.wrap(function _callee15$(_context15) {
+            $startSequenceDiv,
+            _args13 = arguments;
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
           while (1) {
-            switch (_context15.prev = _context15.next) {
+            switch (_context13.prev = _context13.next) {
               case 0:
-                secondMessageCallback = _args15.length > 2 && _args15[2] !== undefined ? _args15[2] : Function.prototype;
-                cssClasses = _args15.length > 3 && _args15[3] !== undefined ? _args15[3] : [];
-                draw = this.game.draw;
-
-                delay = function delay(ms) {
-                  return new Promise(function (resolve) {
-                    return setTimeout(resolve, ms);
-                  });
-                };
-
-                $firstMessageDiv = $('<div class="line">').append(firstMessageElem);
-                $secondMessageDiv = $('<div class="line">').append(secondMessageElem).css('visibility', 'hidden');
-                $restartDiv = $('<div class="blinking">').css('visibility', 'hidden');
-                (0, _i18n.localeInit)($restartDiv, 'press-to-restart');
-                $endingSequenceDiv = $('<div class="announcement-sequences-text" />').addClass(cssClasses).append([$firstMessageDiv, $secondMessageDiv, $('<br>'), $restartDiv]);
-                left = 100 * this.treasureLocation.x;
-                top = 100 * (WATER_DISTANCE + TERRAIN_DISTANCE) / draw.height();
-                $announcementAnchor = $('<div class="announcement-sequences-text-anchor" />').css({
-                  left: "".concat(left, "%"),
-                  top: "".concat(top, "%"),
-                  width: "0px",
-                  height: "0px"
-                });
-                _context15.next = 14;
+                secondMessageCallback = _args13.length > 2 && _args13[2] !== undefined ? _args13[2] : Function.prototype;
+                cssClasses = _args13.length > 3 && _args13[3] !== undefined ? _args13[3] : [];
+                $firstMessageDiv = $('<div class="line line-1">').append(firstMessageElem);
+                $secondMessageDiv = $('<div class="line line-2">').append(secondMessageElem).css('visibility', 'hidden');
+                $startSequenceDiv = $('<div class="announcement-sequences-text game-lost" />').addClass(cssClasses).append([$firstMessageDiv, $secondMessageDiv]);
+                _context13.next = 7;
                 return delay(ENDING_SEQUENCE_FST_DELAY);
 
-              case 14:
-                this.$endingSequenceContainer.empty().append([$announcementAnchor, $endingSequenceDiv]); // popper.js places the ending sequence text in a popup-like fashion above the announcement
-                // anchor and makes sure that is does not move off the screen if the anchor is to close to a
-                // screen edge.
-
-                createAutoUpdatingPopper($announcementAnchor.get(0), $endingSequenceDiv.get(0), {
-                  placement: 'top'
-                });
-                _context15.next = 18;
+              case 7:
+                this.$endingSequenceContainer.empty().append($startSequenceDiv);
+                _context13.next = 10;
                 return delay(ENDING_SEQUENCE_SND_DELAY);
 
-              case 18:
+              case 10:
                 $secondMessageDiv.css("visibility", "visible");
                 secondMessageCallback();
-                _context15.next = 22;
+                _context13.next = 14;
                 return delay(ENDING_SEQUENCE_RESTART_DELAY);
 
-              case 22:
-                $restartDiv.css("visibility", "visible");
+              case 14:
+                this.showRestartHint();
 
-              case 23:
+              case 15:
               case "end":
-                return _context15.stop();
+                return _context13.stop();
             }
           }
-        }, _callee15, this);
+        }, _callee13, this);
       }));
 
-      function showGameOverSequence(_x5, _x6) {
-        return _showGameOverSequence.apply(this, arguments);
+      function showLoseSequence(_x5, _x6) {
+        return _showLoseSequence.apply(this, arguments);
       }
 
-      return showGameOverSequence;
+      return showLoseSequence;
     }()
+  }, {
+    key: "showRestartHint",
+    value: function showRestartHint() {
+      var $restartDiv = $('<div class="restart-hint bubble">'); // Put the restart hint on the screen side opposite of the treasure
+
+      $restartDiv.addClass(this.treasureLocation.x > 0.5 ? 'left' : 'right');
+      var $restartText = $('<span>').appendTo($restartDiv);
+      (0, _i18n.localeInit)($restartText, 'press-to-restart');
+      this.$endingSequenceContainer.append($restartDiv); // Add the end title text
+
+      var $endTitle = $('<div id="game-over-title">');
+      (0, _i18n.localeInit)($endTitle, 'game-over-title');
+      $endTitle.appendTo(this.$overlay);
+    }
   }], [{
     key: "buildBotInput",
     value: function buildBotInput(bot) {
@@ -3109,7 +3118,31 @@ function createAutoUpdatingPopper(reference, popper, options) {
   return popperInstance;
 }
 
-},{"./bot-strategies/base":1,"./bot-strategies/gradient-descent":2,"./bot-strategies/random":3,"./bot-strategies/tangent-intersection":4,"./debug-console":9,"./game-mode":17,"./i18n":19,"./terrain":22,"./waves":23,"@popperjs/core":25,"events":31}],16:[function(require,module,exports){
+function delay(_x7) {
+  return _delay.apply(this, arguments);
+}
+
+function _delay() {
+  _delay = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(ms) {
+    return regeneratorRuntime.wrap(function _callee14$(_context14) {
+      while (1) {
+        switch (_context14.prev = _context14.next) {
+          case 0:
+            return _context14.abrupt("return", new Promise(function (resolve) {
+              return setTimeout(resolve, ms);
+            }));
+
+          case 1:
+          case "end":
+            return _context14.stop();
+        }
+      }
+    }, _callee14);
+  }));
+  return _delay.apply(this, arguments);
+}
+
+},{"./bot-strategies/base":1,"./bot-strategies/gradient-descent":2,"./bot-strategies/random":3,"./bot-strategies/tangent-intersection":4,"./debug-console":9,"./game-mode":17,"./i18n":19,"./terrain":22,"./waves":23,"@popperjs/core":24,"events":30}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3120,8 +3153,6 @@ exports["default"] = void 0;
 var _i18n = require("./i18n");
 
 var _gameMode = _interopRequireDefault(require("./game-mode"));
-
-var _wavyAnimation = _interopRequireDefault(require("./wavy-animation"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -3180,14 +3211,15 @@ var TitleMode = /*#__PURE__*/function (_GameMode) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return this.game.loadSVGSymbol('assets/img/descent-logo.svg');
+                _context.t0 = $;
+                _context.next = 3;
+                return this.game.loadImgElement('assets/img/menu-bg.png');
 
-              case 2:
-                this.logoSprite = _context.sent;
-                this.poly = this.logoSprite.findOne('#descent');
+              case 3:
+                _context.t1 = _context.sent;
+                this.$bg = (0, _context.t0)(_context.t1);
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -3203,80 +3235,31 @@ var TitleMode = /*#__PURE__*/function (_GameMode) {
     }()
   }, {
     key: "handleEnterMode",
-    value: function () {
-      var _handleEnterMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var draw, pressToStart, colorBegin, colorEnd, gradientLogo, gradientText;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                draw = this.game.draw;
-                pressToStart = document.createElement('div');
-                pressToStart.classList.add('title-press-to-start');
-                (0, _i18n.localeInit)(pressToStart, 'press-to-start');
-                this.game.overlay.append(pressToStart);
-                colorBegin = '#00368a';
-                colorEnd = '#34c6ff';
-                gradientLogo = draw.use(this.logoSprite).size(1200, 400).stroke({
-                  color: colorBegin,
-                  width: 2
-                }).fill('transparent').center(1920 / 2, 1080 / 2.5);
-                gradientText = this.logoSprite.findOne('#gradient').stroke('none').fill(colorEnd).opacity(0);
-                gradientText.animate({
-                  duration: 7000
-                }).opacity(1);
-                gradientLogo.animate({
-                  duration: 5000
-                }).stroke({
-                  color: colorEnd
-                });
-                this.wavyStep = (0, _wavyAnimation["default"])(this.logoSprite, {
-                  duration: 3500
-                });
-                this.animCounter = 0;
-                this.elapsedTime = 0;
-
-              case 14:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function handleEnterMode() {
-        return _handleEnterMode.apply(this, arguments);
-      }
-
-      return handleEnterMode;
-    }()
-  }, {
-    key: "handleExitMode",
-    value: function () {
-      var _handleExitMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                // Cleanup timers, etc. created on handleEnterMode
-                // The animation must be set to its final state such that it can restart properly
-                // when this mode is re-entered.
-                this.wavyStep(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function handleExitMode() {
-        return _handleExitMode.apply(this, arguments);
-      }
-
-      return handleExitMode;
-    }()
+    value: function handleEnterMode() {
+      var $overlay = $(this.game.overlay);
+      this.$bg.appendTo($overlay);
+      this.$bg.addClass('title-bg');
+      var $title = $('<div id="title">');
+      $title.get().forEach(function (e) {
+        return (0, _i18n.localeInit)(e, 'title');
+      });
+      $title.appendTo($overlay);
+      var $description1 = $('<div id="title-description-1">');
+      $description1.get().forEach(function (e) {
+        return (0, _i18n.localeInit)(e, 'title-description-1');
+      });
+      var $bubble1 = $('<div id="title-bubble-1" class="bubble">');
+      $description1.appendTo($bubble1);
+      $bubble1.appendTo($overlay);
+      var $description2 = $('<div id="title-description-2">');
+      $description2.get().forEach(function (e) {
+        return (0, _i18n.localeInit)(e, 'title-description-2');
+      });
+      var $bubble2 = $('<div id="title-bubble-2" class="bubble">');
+      $description2.appendTo($bubble2);
+      $bubble2.appendTo($overlay);
+      this.elapsedTime = 0;
+    }
   }, {
     key: "handleInputs",
     value: function handleInputs(inputs, lastInputs, delta, ts0) {
@@ -3293,11 +3276,6 @@ var TitleMode = /*#__PURE__*/function (_GameMode) {
         this.triggerEvent('timeout');
       }
     }
-  }, {
-    key: "draw",
-    value: function draw(delta, ts) {
-      this.wavyStep(delta, ts);
-    }
   }]);
 
   return TitleMode;
@@ -3308,7 +3286,7 @@ TitleMode.defaultOptions = {
   duration: 8 * 1000
 };
 
-},{"./game-mode":17,"./i18n":19,"./wavy-animation":24}],17:[function(require,module,exports){
+},{"./game-mode":17,"./i18n":19}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3387,25 +3365,7 @@ var GameMode = /*#__PURE__*/function () {
 
   }, {
     key: "handleEnterMode",
-    value: function () {
-      var _handleEnterMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      function handleEnterMode() {
-        return _handleEnterMode.apply(this, arguments);
-      }
-
-      return handleEnterMode;
-    }()
+    value: function handleEnterMode() {}
     /**
      * Called by the game when the mode is going to be exited
      *
@@ -3415,25 +3375,7 @@ var GameMode = /*#__PURE__*/function () {
 
   }, {
     key: "handleExitMode",
-    value: function () {
-      var _handleExitMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      function handleExitMode() {
-        return _handleExitMode.apply(this, arguments);
-      }
-
-      return handleExitMode;
-    }()
+    value: function handleExitMode() {}
     /**
      * Called once per frame so the mode can handle controller input
      *
@@ -3495,7 +3437,7 @@ var GameMode = /*#__PURE__*/function () {
 
 exports["default"] = GameMode;
 
-},{"events":31}],18:[function(require,module,exports){
+},{"events":30}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3583,7 +3525,7 @@ var GradientDescentGame = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                width = 1920, height = 864;
+                width = 1920, height = 1080;
                 minAspectRatioContainer = document.createElement('div');
                 minAspectRatioContainer.classList.add('min-aspect-ratio');
                 this.container.append(minAspectRatioContainer);
@@ -3762,6 +3704,52 @@ var GradientDescentGame = /*#__PURE__*/function () {
       return loadSVGSymbol;
     }()
     /**
+     * Loads an external image into an img element
+     *
+     * @param {string} uri
+     * @returns {Promise<HTMLImageElement>}
+     */
+
+  }, {
+    key: "loadImgElement",
+    value: function () {
+      var _loadImgElement = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(uri) {
+        var _this = this;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return new Promise(function (resolve, reject) {
+                  var img = _this.overlay.ownerDocument.createElement('img');
+
+                  img.onload = function () {
+                    return resolve(img);
+                  };
+
+                  img.onerror = reject;
+                  img.src = uri;
+                });
+
+              case 2:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function loadImgElement(_x2) {
+        return _loadImgElement.apply(this, arguments);
+      }
+
+      return loadImgElement;
+    }()
+    /**
      * Initializes the input state
      *
      * @private
@@ -3823,10 +3811,10 @@ var GradientDescentGame = /*#__PURE__*/function () {
   }, {
     key: "handleGlobalInputs",
     value: function handleGlobalInputs() {
-      var _this = this;
+      var _this2 = this;
 
       var switchLanguage = this.inputsLast.reduce(function (acc, cur, i) {
-        return acc || cur.language === false && _this.inputs[i].language === true;
+        return acc || cur.language === false && _this2.inputs[i].language === true;
       }, false);
       if (switchLanguage) this.languageButton.handleLanguageChange().then();
     }
@@ -3837,7 +3825,7 @@ var GradientDescentGame = /*#__PURE__*/function () {
   }, {
     key: "run",
     value: function run() {
-      var _this2 = this;
+      var _this3 = this;
 
       window.cancelAnimationFrame(this.animationFrameRequestId);
 
@@ -3847,21 +3835,21 @@ var GradientDescentGame = /*#__PURE__*/function () {
         var MAX_DELTA = 125;
 
         this.gameLoop = function (ts) {
-          if (!_this2.isPaused) {
-            _this2.readInputs();
+          if (!_this3.isPaused) {
+            _this3.readInputs();
 
-            _this2.handleGlobalInputs();
+            _this3.handleGlobalInputs();
 
             lag += Math.max(0, ts - lag - lastTs - MAX_DELTA);
             ts -= lag;
             var delta = ts - lastTs;
 
-            _this2.currentMode.handleInputs(_this2.inputs, _this2.inputsLast, delta, ts);
+            _this3.currentMode.handleInputs(_this3.inputs, _this3.inputsLast, delta, ts);
 
-            _this2.currentMode.draw(delta, ts);
+            _this3.currentMode.draw(delta, ts);
 
             lastTs = ts;
-            _this2.animationFrameRequestId = window.requestAnimationFrame(_this2.gameLoop);
+            _this3.animationFrameRequestId = window.requestAnimationFrame(_this3.gameLoop);
           }
         };
       }
@@ -3907,24 +3895,24 @@ var GradientDescentGame = /*#__PURE__*/function () {
   }, {
     key: "registerMode",
     value: function () {
-      var _registerMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id, mode) {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      var _registerMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(id, mode) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 this.modes[id] = mode;
-                _context3.next = 3;
+                _context4.next = 3;
                 return mode.preLoadAssets();
 
               case 3:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
-      function registerMode(_x2, _x3) {
+      function registerMode(_x3, _x4) {
         return _registerMode.apply(this, arguments);
       }
 
@@ -3940,58 +3928,27 @@ var GradientDescentGame = /*#__PURE__*/function () {
 
   }, {
     key: "setMode",
-    value: function () {
-      var _setMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(modeID) {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                this.pause();
+    value: function setMode(modeID) {
+      this.pause();
 
-                if (!this.currentMode) {
-                  _context4.next = 4;
-                  break;
-                }
-
-                _context4.next = 4;
-                return this.currentMode.handleExitMode();
-
-              case 4:
-                if (!(this.modes[modeID] === undefined)) {
-                  _context4.next = 6;
-                  break;
-                }
-
-                throw new Error("Can't change to unknown mode ".concat(modeID));
-
-              case 6:
-                this.currentMode = this.modes[modeID];
-                this.draw.clear();
-                this.overlay.innerHTML = '';
-                _context4.next = 11;
-                return this.currentMode.handleEnterMode();
-
-              case 11:
-                this.resume();
-
-              case 12:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function setMode(_x4) {
-        return _setMode.apply(this, arguments);
+      if (this.currentMode) {
+        this.currentMode.handleExitMode();
       }
 
-      return setMode;
-    }()
+      if (this.modes[modeID] === undefined) {
+        throw new Error("Can't change to unknown mode ".concat(modeID));
+      }
+
+      this.currentMode = this.modes[modeID];
+      this.draw.clear();
+      this.overlay.innerHTML = '';
+      this.currentMode.handleEnterMode();
+      this.resume();
+    }
   }, {
     key: "transition",
     value: function transition(modeId, event) {
-      var _this3 = this;
+      var _this4 = this;
 
       var nextModeId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       var callback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
@@ -4005,12 +3962,12 @@ var GradientDescentGame = /*#__PURE__*/function () {
       }
 
       this.modes[modeId].events.on(event, function () {
-        if (_this3.currentMode !== _this3.modes[modeId]) {
+        if (_this4.currentMode !== _this4.modes[modeId]) {
           throw new Error("Mode ".concat(modeId, " triggered the event ").concat(event, " while not active. Something was not cleaned up?"));
         }
 
         if (nextModeId !== null) {
-          _this3.setMode(nextModeId);
+          _this4.setMode(nextModeId);
         }
 
         if (callback && typeof callback === 'function') {
@@ -4087,7 +4044,7 @@ var GradientDescentGame = /*#__PURE__*/function () {
 
 exports["default"] = GradientDescentGame;
 
-},{"./controls/gamepad":6,"./controls/keyboard":7,"./controls/screen":8,"./full-screen-toggle":10,"./game-mode-bottype":11,"./game-mode-demo":12,"./game-mode-numplayers":14,"./game-mode-play":15,"./game-mode-title":16,"./i18n":19,"./language-cycle-button":20,"@wessberg/pointer-events":26}],19:[function(require,module,exports){
+},{"./controls/gamepad":6,"./controls/keyboard":7,"./controls/screen":8,"./full-screen-toggle":10,"./game-mode-bottype":11,"./game-mode-demo":12,"./game-mode-numplayers":14,"./game-mode-play":15,"./game-mode-title":16,"./i18n":19,"./language-cycle-button":20,"@wessberg/pointer-events":25}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4711,7 +4668,7 @@ function terrain(numSamples, length) {
   });
 }
 
-},{"assert":27}],23:[function(require,module,exports){
+},{"assert":26}],23:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4722,6 +4679,19 @@ exports.slope = slope;
 exports.heights = heights;
 exports.points = points;
 exports.animatedSVGPolyline = animatedSVGPolyline;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 // The water surface consists of superimposed sin waves that are moving with respect to ts.
 // Fixing x, the frequency factors with respect to ts are [1,-1,2,3].
 // Since the lowest common denominator of these factors is 6 and the base frequency is 1 / (2 * PI),
@@ -4763,11 +4733,13 @@ function points(arr, t) {
 
 
 function animatedSVGPolyline(svgContainer, numPoints, numSteps, xScale, yScale, duration) {
+  var extraPoints = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
+  var closed = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
   var p = Array(numPoints).fill(null);
   var keyframes = Array(numSteps).fill(null).map(function (_, i) {
-    return Array.from(points(p, i / (numSteps - 1), xScale, yScale));
+    return [].concat(_toConsumableArray(points(p, i / (numSteps - 1), xScale, yScale)), _toConsumableArray(extraPoints));
   });
-  var waves = svgContainer.polyline(keyframes[0]);
+  var waves = closed ? svgContainer.polygon(keyframes[0]) : svgContainer.polyline(keyframes[0]);
   var keyframesSvg = keyframes.map(function (p) {
     return waves.plot(p).attr('points');
   });
@@ -4783,95 +4755,6 @@ function animatedSVGPolyline(svgContainer, numPoints, numSteps, xScale, yScale, 
 }
 
 },{}],24:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = WavyAnimation;
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-/**
- * Setup a wave-like animation for an svg.js shape made up of polygons.
- *
- * This animation works by applying a transformation on all points of
- * all polygons of the passed shape. The points will move on a sine wave
- * that is continuously phase shifting and whose amplitude decreases over time.
- *
- * Returns a stepping function that takes a delta in milliseconds which should
- * be called on the frame rendering function.
- *
- * Options:
- * - xAmplitude: Maximum distance that the x coordinates are shifted from their
- *   starting position.
- * - duration: Duration of the animation
- * - cycles: Number of cycles of phase shifting.
- *
- * @param {SVG.Container} shape
- *  The shape whose polygons will be animated
- * @param {Object} userOptions
- *  Options (see above)
- * @return {function(...[*]=)}
- *  Returns an animation callback that takes a delta.
- */
-function WavyAnimation(shape) {
-  var userOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var defaultOptions = {
-    xAmplitude: 50,
-    duration: 5000,
-    cycles: 3
-  };
-  var options = Object.assign({}, defaultOptions, userOptions);
-  var polygons = shape.find('polygon');
-  var originalPlots = polygons.map(function (p) {
-    return p.plot();
-  });
-  var maxY = Math.max.apply(Math, _toConsumableArray(originalPlots.flat().map(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        y = _ref2[1];
-
-    return y;
-  })));
-  var counter = 0;
-  return function (delta, ts) {
-    if (counter > options.duration) {
-      return;
-    }
-
-    counter += delta;
-    var progress = Math.min(counter, options.duration) / options.duration;
-    polygons.forEach(function (p, i) {
-      p.plot(originalPlots[i].map(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 2),
-            x = _ref4[0],
-            y = _ref4[1];
-
-        return [x + Math.sin((y / maxY + progress * options.cycles) * Math.PI * 2) * options.xAmplitude * (1 - Math.pow(progress, 2)), y];
-      }));
-    });
-  };
-}
-
-},{}],25:[function(require,module,exports){
 (function (process){(function (){
 /**
  * @popperjs/core v2.5.4 - MIT License
@@ -6742,7 +6625,7 @@ exports.preventOverflow = preventOverflow$1;
 
 }).call(this)}).call(this,require('_process'))
 
-},{"_process":33}],26:[function(require,module,exports){
+},{"_process":32}],25:[function(require,module,exports){
 (function () {
 	'use strict';
 
@@ -8599,7 +8482,7 @@ exports.preventOverflow = preventOverflow$1;
 }());
 
 
-},{}],27:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function (global){(function (){
 'use strict';
 
@@ -9110,7 +8993,7 @@ var objectKeys = Object.keys || function (obj) {
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"object-assign":32,"util/":30}],28:[function(require,module,exports){
+},{"object-assign":31,"util/":29}],27:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -9135,14 +9018,14 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],29:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -9733,7 +9616,7 @@ function hasOwnProperty(obj, prop) {
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./support/isBuffer":29,"_process":33,"inherits":28}],31:[function(require,module,exports){
+},{"./support/isBuffer":28,"_process":32,"inherits":27}],30:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -10258,7 +10141,7 @@ function functionBindPolyfill(context) {
   };
 }
 
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -10350,7 +10233,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
