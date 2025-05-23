@@ -9,14 +9,24 @@ export default class TitleMode extends GameMode {
   }
 
   async preLoadAssets() {
-    this.$bg = $(await this.game.loadImgElement('assets/img/menu-bg.png'));
+    this.$bgSeafloor = $(await this.game.loadImgElement('assets/img/menu-bg-seafloor.png'));
+    this.$lines = $(await this.game.loadImgElement('assets/img/lines.svg'));
   }
 
   handleEnterMode() {
+    super.handleEnterMode();
+
+    const $main = $('.main');
+    $main.addClass('mode-title');
+
     const $overlay = $(this.game.overlay);
 
-    this.$bg.appendTo($overlay);
-    this.$bg.addClass('title-bg');
+    this.$bgSeafloor.appendTo($overlay);
+    this.$bgSeafloor.addClass('title-bg');
+
+    const $water = $('<div>');
+    $water.addClass("title-water-bg");
+    $water.appendTo($overlay);
 
     const $title = $('<div id="title">');
     $title.get().forEach(e=>localeInit(e, 'title'));
@@ -34,7 +44,18 @@ export default class TitleMode extends GameMode {
     $description2.appendTo($bubble2);
     $bubble2.appendTo($overlay);
 
+    this.$lines.appendTo($overlay);
+    this.$lines.addClass('title-bg');
+
     this.elapsedTime = 0;
+  }
+
+  handleExitMode() {
+    // Cleanup timers, etc. created on handleEnterMode
+    const $main = $('.main');
+    $main.removeClass('mode-title');
+
+    super.handleExitMode();
   }
 
   handleInputs(inputs, lastInputs, delta, ts0) {

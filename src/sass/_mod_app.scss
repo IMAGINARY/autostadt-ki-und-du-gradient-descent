@@ -43,10 +43,19 @@
   left: 0;
 }
 
+.title-water-bg {
+  --water-distance: 365px;
+  position: absolute;
+  top: var(--water-distance);
+  left: 0;
+  width: 100%;
+  height: calc(1920px - var(--water-distance));
+  background-color: rgba(125, 196, 255, 0.45);
+}
 
 .bubble {
-  --bubble-color-1: #ff6836;
-  --bubble-color-2: #83b3ca;
+  --bubble-color-1: rgb(163, 189, 166);
+  --bubble-color-2: rgb(251, 234, 224);
   --bubble-color: var(--bubble-color-1);
   position: absolute;
   top: 0;
@@ -86,34 +95,43 @@
   white-space: pre-line;
 }
 
+
 #title-bubble-1 {
   --bubble-color: var(--bubble-color-1);
-  top: 761px;
+  top: 651px;
   left: 566px;
   font-size: 24px;
+  font-weight: 400;
   height: 140px;
   width: 338px;
   line-height: 30px;
+  padding-left: 59px;
+  padding-right: 50px;
+  padding-top: 4px;
 }
 
 #title-bubble-1::after {
-  left: 193px;
-  border-width: 91px 0 0 56px;
+  left: 217px;
+  border-width: 51px 0 0 32px;
 }
 
 #title-bubble-2 {
   --bubble-color: var(--bubble-color-2);
-  top: 613px;
+  top: 503px;
   left: 773px;
   font-size: 32px;
+  font-weight: 400;
   height: 181px;
   width: 616px;
-  line-height: 36px;
+  line-height: 38px;
+  padding-left: 97px;
+  padding-bottom: 4px;
+  justify-content: left;
 }
 
 #title-bubble-2::after {
   left: 336px;
-  border-width: 111px 68px 0 0;
+  border-width: 70px 43px 0 0;
 }
 
 .menu-title {

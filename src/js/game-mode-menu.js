@@ -9,7 +9,8 @@ export default class MenuMode extends GameMode {
   }
 
   async preLoadAssets() {
-    this.$bg = $(await this.game.loadImgElement('assets/img/menu-bg.png'));
+    this.$bgSeafloor = $(await this.game.loadImgElement('assets/img/menu-bg-seafloor.png'));
+    this.$lines = $(await this.game.loadImgElement('assets/img/lines.svg'));
   }
 
   handleEnterMode() {
@@ -20,8 +21,12 @@ export default class MenuMode extends GameMode {
 
     const $overlay = $(this.game.overlay);
 
-    this.$bg.addClass('menu-bg');
-    this.$bg.appendTo($overlay);
+    this.$bgSeafloor.appendTo($overlay);
+    this.$bgSeafloor.addClass('title-bg');
+
+    const $water = $('<div>');
+    $water.addClass("title-water-bg");
+    $water.appendTo($overlay);
 
     const $title = $('<div id="title">');
     $title.get().forEach(e=>localeInit(e, 'title'));
@@ -59,6 +64,9 @@ export default class MenuMode extends GameMode {
         .appendTo($overlay);
       this.updateMenuTip();
     }
+
+    this.$lines.appendTo($overlay);
+    this.$lines.addClass('title-bg');
   }
 
   updateMenuTip() {
