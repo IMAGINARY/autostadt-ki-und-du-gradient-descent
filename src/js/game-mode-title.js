@@ -39,9 +39,11 @@ export default class TitleMode extends GameMode {
 
   handleInputs(inputs, lastInputs, delta, ts0) {
     // If any button was pressed
-    if (inputs
-      .find((ctrl, i) => ctrl.action && !lastInputs[i].action)) {
-      this.triggerEvent('done');
+    for(let i = 0; i < inputs.length; ++i) {
+      if (inputs[i].action && !lastInputs[i].action || inputs[i].direction !== lastInputs[i].direction) {
+        this.triggerEvent('done');
+        break;
+      }
     }
 
     this.elapsedTime += delta;
