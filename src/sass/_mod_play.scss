@@ -234,14 +234,22 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
       }
 
       & .remaining-probes {
-        display: flex;
+        position: relative;
 
-        &:has(> :nth-child(1):last-child) {
-          justify-content: space-around;
+        .player-0 {
+          position: absolute;
+          left: 0;
         }
 
-        &:has(> :nth-child(2)) {
-          justify-content: space-between;
+        .player-bot {
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, 0);
+        }
+
+        .player-1 {
+          position: absolute;
+          right: 0;
         }
 
         & .label::after {

@@ -122,7 +122,20 @@ export default class PlayMode extends GameMode {
 
     const padRemainingProbes = num => pad(num, String(this.game.config.maxProbes).length, ' ');
     const createPlayer = (playerIndex, numPlayers, cssClass, isBot = false) => {
-      const x = (playerIndex + 1) / (numPlayers + 1);
+      if(numPlayers > 3) {
+        throw new Error('The implementation for Autostadt "KI und DU" only works for up to 3 players including the bot.' );
+      }
+      let x;
+      if(isBot) {
+        x = 0.5;
+      } else {
+        if(playerIndex === 0) {
+          x = 0.25;
+        } else {
+          x = 0.75;
+        }
+      }
+
       const group = modeGroup.group();
       group
         .addClass(cssClass)
