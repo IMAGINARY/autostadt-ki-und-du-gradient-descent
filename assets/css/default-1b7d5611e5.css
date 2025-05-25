@@ -202,7 +202,7 @@ html, body {
   height: 100%;
   max-width: 177.7777777778vh;
   margin: auto;
-  background-color: #e7e1d8;
+  background-color: rgb(251, 235, 224);
   overflow: hidden;
   font-size: 100%;
 }
@@ -228,9 +228,19 @@ html, body {
   left: 0;
 }
 
+.title-water-bg {
+  --water-distance: 365px;
+  position: absolute;
+  top: var(--water-distance);
+  left: 0;
+  width: 100%;
+  height: calc(1080px - var(--water-distance));
+  background: linear-gradient(180deg, rgba(125, 196, 255, 0.45) 0%, rgba(125, 196, 255, 0.45) 100%);
+}
+
 .bubble {
-  --bubble-color-1: #ff6836;
-  --bubble-color-2: #83b3ca;
+  --bubble-color-1: rgb(163, 189, 166);
+  --bubble-color-2: rgb(251, 234, 224);
   --bubble-color: var(--bubble-color-1);
   position: absolute;
   top: 0;
@@ -272,32 +282,40 @@ html, body {
 
 #title-bubble-1 {
   --bubble-color: var(--bubble-color-1);
-  top: 761px;
+  top: 651px;
   left: 566px;
   font-size: 24px;
+  font-weight: 400;
   height: 140px;
   width: 338px;
   line-height: 30px;
+  padding-left: 59px;
+  padding-right: 50px;
+  padding-top: 4px;
 }
 
 #title-bubble-1::after {
-  left: 193px;
-  border-width: 91px 0 0 56px;
+  left: 217px;
+  border-width: 51px 0 0 32px;
 }
 
 #title-bubble-2 {
   --bubble-color: var(--bubble-color-2);
-  top: 613px;
+  top: 503px;
   left: 773px;
   font-size: 32px;
+  font-weight: 400;
   height: 181px;
   width: 616px;
-  line-height: 36px;
+  line-height: 38px;
+  padding-left: 97px;
+  padding-bottom: 4px;
+  justify-content: left;
 }
 
 #title-bubble-2::after {
   left: 336px;
-  border-width: 111px 68px 0 0;
+  border-width: 70px 43px 0 0;
 }
 
 .menu-title {
@@ -353,7 +371,7 @@ html, body {
 .menu-tip {
   position: relative;
   margin-top: 45px;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 300;
   color: #7990a3;
 }
@@ -372,27 +390,33 @@ html, body {
 }
 
 .player-0 {
-  --player-color: #60b5cf;
+  --player-color: rgb(0, 170, 209);
+  --player-probe-color: rgb(0, 144, 201);
+  --player-tangent-color: rgb(0, 72, 89);
 }
 .draw .player-0, .player-0.draw {
-  stroke: #60b5cf;
+  stroke: rgb(0, 170, 209);
 }
 .fill .player-0, .player-0.fill {
-  fill: #60b5cf;
+  fill: rgb(0, 170, 209);
 }
 
 .player-1 {
-  --player-color: #f2b73f;
+  --player-color: rgb(237, 191, 0);
+  --player-probe-color: rgb(255, 162, 0);
+  --player-tangent-color: rgb(198, 113, 0);
 }
 .draw .player-1, .player-1.draw {
-  stroke: #f2b73f;
+  stroke: rgb(237, 191, 0);
 }
 .fill .player-1, .player-1.fill {
-  fill: #f2b73f;
+  fill: rgb(237, 191, 0);
 }
 
 .player-2 {
   --player-color: #29da29;
+  --player-probe-color: #29da29;
+  --player-tangent-color: #29da29;
 }
 .draw .player-2, .player-2.draw {
   stroke: #29da29;
@@ -403,6 +427,8 @@ html, body {
 
 .player-3 {
   --player-color: #FF8D18;
+  --player-probe-color: #FF8D18;
+  --player-tangent-color: #FF8D18;
 }
 .draw .player-3, .player-3.draw {
   stroke: #FF8D18;
@@ -412,37 +438,60 @@ html, body {
 }
 
 .player-bot {
-  --player-color: #61CD68;
+  --player-color: rgb(36, 163, 60);
+  --player-probe-color: rgb(0, 145, 24);
+  --player-tangent-color: rgb(0, 63, 13);
 }
 .draw .player-bot, .player-bot.draw {
-  stroke: #61CD68;
+  stroke: rgb(36, 163, 60);
 }
 .fill .player-bot, .player-bot.fill {
-  fill: #61CD68;
+  fill: rgb(36, 163, 60);
+}
+
+.player-none {
+  --player-color: transparent;
+  --player-probe-color: transparent;
+  --player-tangent-color: transparent;
+}
+.draw .player-none, .player-none.draw {
+  stroke: transparent;
+}
+.fill .player-none, .player-none.fill {
+  fill: transparent;
 }
 
 .probe {
-  stroke: black;
-  stroke-width: 1px;
-  fill: var(--player-color);
+  stroke: none;
+  fill: var(--player-probe-color);
 }
 
 .probe-rope-gradient-stop-0 {
-  stop-color: color-mix(in hsl, var(--player-color), black 40%);
+  stop-color: color-mix(in hsl, var(--player-probe-color), black 40%);
 }
 
 .probe-rope-gradient-stop-20, .probe-rope-gradient-stop-100 {
-  stop-color: var(--player-color);
+  stop-color: var(--player-probe-color);
 }
 
 .probe-rope {
   stroke-width: 4px;
 }
 
+.tangent {
+  stroke: var(--player-tangent-color);
+}
+
 .water {
-  stroke: #B4CEE6;
-  fill: #B4CEE6;
-  opacity: 75%;
+  stroke: none;
+}
+
+.water-gradient-stop-top {
+  stop-color: rgba(125, 196, 255, 0.45);
+}
+
+.water-gradient-stop-bottom {
+  stop-color: rgba(125, 196, 255, 0.45);
 }
 
 .ground-group.clip {
@@ -454,9 +503,8 @@ html, body {
 }
 
 .ground {
-  stroke: #BF9D73;
-  fill: transparent;
-  stroke-dasharray: 14px, 12px;
+  stroke: none;
+  fill: rgb(226, 183, 154);
 }
 
 .treasure {
@@ -484,7 +532,7 @@ html, body {
   top: 488px;
 }
 .overlay .announcement-sequences-text.game-won.bubble {
-  --bubble-color: #E7E1D8;
+  --bubble-color: #DCB99E;
   --anchor-x: 0px;
   --anchor-y: 0px;
   --arrow-width: 40px;
@@ -531,7 +579,7 @@ html, body {
   margin-bottom: 14px;
 }
 .overlay .restart-hint.bubble {
-  --bubble-color: var(--bubble-color-1);
+  --bubble-color: #F8EBE1;
   font-size: 24px;
   height: 126px;
   top: 859px;
@@ -590,13 +638,20 @@ html, body {
   text-align: right;
 }
 .overlay .game-stats .game-stats-wrapper .remaining-probes {
-  display: flex;
+  position: relative;
 }
-.overlay .game-stats .game-stats-wrapper .remaining-probes:has(> :nth-child(1):last-child) {
-  justify-content: space-around;
+.overlay .game-stats .game-stats-wrapper .remaining-probes .player-0 {
+  position: absolute;
+  left: 0;
 }
-.overlay .game-stats .game-stats-wrapper .remaining-probes:has(> :nth-child(2)) {
-  justify-content: space-between;
+.overlay .game-stats .game-stats-wrapper .remaining-probes .player-bot {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.overlay .game-stats .game-stats-wrapper .remaining-probes .player-1 {
+  position: absolute;
+  right: 0;
 }
 .overlay .game-stats .game-stats-wrapper .remaining-probes .label::after {
   --circle-diameter: 36px;
@@ -607,7 +662,7 @@ html, body {
   height: var(--circle-diameter);
   margin-left: 7px;
   background-color: var(--player-color);
-  border: 1px solid black;
+  border: none;
   border-radius: 50vh;
   display: inline-block;
   box-sizing: border-box;
@@ -706,4 +761,4 @@ html, body {
   margin-top: -0.1ex;
   font-size: 188%;
 }
-/*# sourceMappingURL=default-09e0625a6f.css.map */
+/*# sourceMappingURL=default-1b7d5611e5.css.map */

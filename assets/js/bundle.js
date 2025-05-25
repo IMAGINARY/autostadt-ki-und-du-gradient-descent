@@ -1720,13 +1720,20 @@ var MenuMode = /*#__PURE__*/function (_GameMode) {
               case 0:
                 _context.t0 = $;
                 _context.next = 3;
-                return this.game.loadImgElement('assets/img/menu-bg.png');
+                return this.game.loadImgElement('assets/img/menu-bg-seafloor.png');
 
               case 3:
                 _context.t1 = _context.sent;
-                this.$bg = (0, _context.t0)(_context.t1);
+                this.$bgSeafloor = (0, _context.t0)(_context.t1);
+                _context.t2 = $;
+                _context.next = 8;
+                return this.game.loadImgElement('assets/img/lines.svg');
 
-              case 5:
+              case 8:
+                _context.t3 = _context.sent;
+                this.$lines = (0, _context.t2)(_context.t3);
+
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -1748,8 +1755,11 @@ var MenuMode = /*#__PURE__*/function (_GameMode) {
       var $main = $('.main');
       $main.addClass('mode-menu');
       var $overlay = $(this.game.overlay);
-      this.$bg.addClass('menu-bg');
-      this.$bg.appendTo($overlay);
+      this.$bgSeafloor.appendTo($overlay);
+      this.$bgSeafloor.addClass('title-bg');
+      var $water = $('<div>');
+      $water.addClass("title-water-bg");
+      $water.appendTo($overlay);
       var $title = $('<div id="title">');
       $title.get().forEach(function (e) {
         return (0, _i18n.localeInit)(e, 'title');
@@ -1783,6 +1793,9 @@ var MenuMode = /*#__PURE__*/function (_GameMode) {
         this.$menuTip = $('<div class="text text-center menu-tip" />').appendTo($overlay);
         this.updateMenuTip();
       }
+
+      this.$lines.appendTo($overlay);
+      this.$lines.addClass('title-bg');
     }
   }, {
     key: "updateMenuTip",
@@ -2119,7 +2132,7 @@ var START_SEQUENCE_AFTER_SND_DELAY = 1000;
 var UNCOVER_DURATION = 2000;
 var ENDING_SEQUENCE_FST_DELAY = 0;
 var ENDING_SEQUENCE_SND_DELAY = 1000;
-var ENDING_SEQUENCE_RESTART_DELAY = 1000;
+var ENDING_SEQUENCE_RESTART_DELAY = 5000;
 
 var PlayMode = /*#__PURE__*/function (_GameMode) {
   _inherits(PlayMode, _GameMode);
@@ -2247,7 +2260,23 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
 
       var createPlayer = function createPlayer(playerIndex, numPlayers, cssClass) {
         var isBot = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-        var x = (playerIndex + 1) / (numPlayers + 1);
+
+        if (numPlayers > 3) {
+          throw new Error('The implementation for Autostadt "KI und DU" only works for up to 3 players including the bot.');
+        }
+
+        var x;
+
+        if (isBot) {
+          x = 0.5;
+        } else {
+          if (playerIndex === 0) {
+            x = 0.25;
+          } else {
+            x = 0.75;
+          }
+        }
+
         var group = modeGroup.group();
         group.addClass(cssClass).transform({
           translateX: x * draw.width()
@@ -2424,8 +2453,20 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
       }
 
       this.water = modeGroup.group().attr('id', 'water').addClass('water');
-      var extraPoints = [[game.draw.width() + 100, 0], [game.draw.width() + 100, game.draw.height() + 100], [-100, game.draw.height() + 100], [-100, 0]];
+      var extraPoints = [[game.draw.width(), 0], [game.draw.width(), game.draw.height()], [0, game.draw.height()], [0, 0]];
       waves.animatedSVGPolyline(this.water, NUM_WATER_POINTS, WATER_LOOP_DURATION / 1000 * WATER_FPS, game.draw.width(), WATER_HEIGHT_SCALE, WATER_LOOP_DURATION, extraPoints, true);
+      var waterGradient = this.water.gradient('linear', function (add) {
+        add.stop({
+          offset: 0
+        }).addClass('water-gradient-stop-top');
+        add.stop({
+          offset: 1 - WATER_DISTANCE / game.draw.height()
+        }).addClass('water-gradient-stop-bottom');
+        add.stop({
+          offset: 1
+        });
+      }).from(0, 0).to(0, 1);
+      this.water.fill(waterGradient);
       this.groundGroup = modeGroup.group();
 
       var newTerrainHeights = function newTerrainHeights() {
@@ -2447,7 +2488,7 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
 
       _debugConsole["default"].log("Treasure location:", this.treasureLocation);
 
-      this.treasureGroup = modeGroup.group().addClass('treasure').transform({
+      this.treasureGroup = modeGroup.group().addClass('treasure').addClass('player-none').transform({
         translateX: this.treasureLocation.x * draw.width(),
         translateY: TERRAIN_DISTANCE + this.treasureLocation.y * TERRAIN_HEIGHT_SCALE
       });
@@ -2461,7 +2502,7 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
 
       this.tangentGroup = modeGroup.group().translate(0, TERRAIN_DISTANCE); // Set z ordering of elements
 
-      [this.water, this.groundGroup, this.tangentGroup, this.treasureGroup].forEach(function (e) {
+      [this.groundGroup, this.water, this.tangentGroup, this.treasureGroup].forEach(function (e) {
         return e.front();
       });
       this.discardInputs = true;
@@ -2612,13 +2653,15 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
                   switch (_context6.prev = _context6.next) {
                     case 0:
                       if (!(treasureFound && !_this7.isGameOver)) {
-                        _context6.next = 4;
+                        _context6.next = 5;
                         break;
                       }
 
                       _debugConsole["default"].log("Treasure found - GAME OVER!");
 
-                      _context6.next = 4;
+                      _this7.treasureGroup.removeClass('player-none').addClass(player.cssClass);
+
+                      _context6.next = 5;
                       return _this7.gameOver( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
                         return regeneratorRuntime.wrap(function _callee5$(_context5) {
                           while (1) {
@@ -2634,7 +2677,7 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
                         }, _callee5);
                       })));
 
-                    case 4:
+                    case 5:
                     case "end":
                       return _context6.stop();
                   }
@@ -2737,7 +2780,7 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
           value = tangent.value,
           slope = tangent.slope;
       var angle = 180 * Math.atan2(slope * TERRAIN_HEIGHT_SCALE, width) / Math.PI;
-      this.tangentGroup.line(-width * TANGENT_LENGTH / 2, 0, width * TANGENT_LENGTH / 2, 0).addClass(player.cssClass).transform({
+      this.tangentGroup.line(-width * TANGENT_LENGTH / 2, 0, width * TANGENT_LENGTH / 2, 0).addClass(player.cssClass).addClass('tangent').transform({
         translateX: width * x,
         translateY: TERRAIN_HEIGHT_SCALE * value,
         rotate: angle
@@ -3174,6 +3217,10 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -3213,13 +3260,20 @@ var TitleMode = /*#__PURE__*/function (_GameMode) {
               case 0:
                 _context.t0 = $;
                 _context.next = 3;
-                return this.game.loadImgElement('assets/img/menu-bg.png');
+                return this.game.loadImgElement('assets/img/menu-bg-seafloor.png');
 
               case 3:
                 _context.t1 = _context.sent;
-                this.$bg = (0, _context.t0)(_context.t1);
+                this.$bgSeafloor = (0, _context.t0)(_context.t1);
+                _context.t2 = $;
+                _context.next = 8;
+                return this.game.loadImgElement('assets/img/lines.svg');
 
-              case 5:
+              case 8:
+                _context.t3 = _context.sent;
+                this.$lines = (0, _context.t2)(_context.t3);
+
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -3236,9 +3290,16 @@ var TitleMode = /*#__PURE__*/function (_GameMode) {
   }, {
     key: "handleEnterMode",
     value: function handleEnterMode() {
+      _get(_getPrototypeOf(TitleMode.prototype), "handleEnterMode", this).call(this);
+
+      var $main = $('.main');
+      $main.addClass('mode-title');
       var $overlay = $(this.game.overlay);
-      this.$bg.appendTo($overlay);
-      this.$bg.addClass('title-bg');
+      this.$bgSeafloor.appendTo($overlay);
+      this.$bgSeafloor.addClass('title-bg');
+      var $water = $('<div>');
+      $water.addClass("title-water-bg");
+      $water.appendTo($overlay);
       var $title = $('<div id="title">');
       $title.get().forEach(function (e) {
         return (0, _i18n.localeInit)(e, 'title');
@@ -3258,16 +3319,28 @@ var TitleMode = /*#__PURE__*/function (_GameMode) {
       var $bubble2 = $('<div id="title-bubble-2" class="bubble">');
       $description2.appendTo($bubble2);
       $bubble2.appendTo($overlay);
+      this.$lines.appendTo($overlay);
+      this.$lines.addClass('title-bg');
       this.elapsedTime = 0;
+    }
+  }, {
+    key: "handleExitMode",
+    value: function handleExitMode() {
+      // Cleanup timers, etc. created on handleEnterMode
+      var $main = $('.main');
+      $main.removeClass('mode-title');
+
+      _get(_getPrototypeOf(TitleMode.prototype), "handleExitMode", this).call(this);
     }
   }, {
     key: "handleInputs",
     value: function handleInputs(inputs, lastInputs, delta, ts0) {
       // If any button was pressed
-      if (inputs.find(function (ctrl, i) {
-        return ctrl.action && !lastInputs[i].action;
-      })) {
-        this.triggerEvent('done');
+      for (var i = 0; i < inputs.length; ++i) {
+        if (inputs[i].action && !lastInputs[i].action || inputs[i].direction !== lastInputs[i].direction) {
+          this.triggerEvent('done');
+          break;
+        }
       }
 
       this.elapsedTime += delta;
