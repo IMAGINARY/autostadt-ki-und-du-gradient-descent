@@ -281,11 +281,12 @@ export default class PlayMode extends GameMode {
     }
 
     this.water = modeGroup.group().attr('id', 'water').addClass('water');
+
     const extraPoints = [
-      [game.draw.width() + 100, 0],
-      [game.draw.width() + 100, game.draw.height() + 100],
-      [-100, game.draw.height() + 100],
-      [-100, 0],
+      [game.draw.width(), 0],
+      [game.draw.width(), game.draw.height()],
+      [0, game.draw.height()],
+      [0, 0],
     ];
     waves.animatedSVGPolyline(this.water,
       NUM_WATER_POINTS,
@@ -296,6 +297,13 @@ export default class PlayMode extends GameMode {
       extraPoints,
       true,
     );
+    const waterGradient = this.water.gradient('linear', function(add) {
+      add.stop({offset: 0}).addClass('water-gradient-stop-top');
+      add.stop({offset: 1 - WATER_DISTANCE / game.draw.height() }).addClass('water-gradient-stop-bottom');
+      add.stop({offset: 1});
+    }).from(0, 0).to(0, 1);
+
+    this.water.fill(waterGradient);
 
     this.groundGroup = modeGroup.group();
     const newTerrainHeights = () => {
