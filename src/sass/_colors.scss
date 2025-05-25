@@ -27,11 +27,21 @@ $color-water: #B4CEE6;
 $color-ground: #BF9D73;
 $color-treasure: #F99C2D;
 
-$color-player-0: #60b5cf;
-$color-player-1: #f2b73f;
+$color-player-0: rgb(0, 170, 209);
+$color-player-0-probe: rgb(0, 144, 201);
+$color-player-0-tangent: rgb(0, 72, 89);
+$color-player-1: rgb(237, 191,0);
+$color-player-1-probe: rgb(255, 162, 0);
+$color-player-1-tangent: rgb(198, 113, 0);
 $color-player-2: $color-green;
+$color-player-2-probe: $color-player-2;
+$color-player-2-tangent: $color-player-2;
 $color-player-3: $color-orange;
-$color-player-bot: #61CD68;
+$color-player-3-probe: $color-player-3;
+$color-player-3-tangent: $color-player-3;
+$color-player-bot: rgb(36, 163, 60);
+$color-player-bot-probe: rgb(0, 145, 24);
+$color-player-bot-tangent: rgb(0, 63, 13);
 
 @mixin neg {
   -webkit-font-smoothing: antialiased;

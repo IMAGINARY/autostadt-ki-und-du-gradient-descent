@@ -546,6 +546,7 @@ export default class PlayMode extends GameMode {
     const angle = 180 * Math.atan2(slope * TERRAIN_HEIGHT_SCALE, width) / Math.PI;
     this.tangentGroup.line(-width * TANGENT_LENGTH / 2, 0, width * TANGENT_LENGTH / 2, 0,)
       .addClass(player.cssClass)
+      .addClass('tangent')
       .transform({
         translateX: width * x,
         translateY: TERRAIN_HEIGHT_SCALE * value,
