@@ -70,10 +70,8 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
 }
 
 .ground {
-  stroke: $color-ground;
-  // fill: $color-bg;
-  fill: transparent;
-  stroke-dasharray: 14px, 12px;
+  stroke: none;
+  fill: $color-ground;
 }
 
 .treasure {
