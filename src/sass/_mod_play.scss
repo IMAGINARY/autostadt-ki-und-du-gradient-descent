@@ -34,6 +34,10 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
   @include player($color-player-bot, $color-player-bot-probe, $color-player-bot-tangent);
 }
 
+.player-none {
+  @include player(transparent, transparent, transparent);
+}
+
 .probe {
   stroke: none;
   fill: var(--player-probe-color);

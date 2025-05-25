@@ -306,6 +306,7 @@ export default class PlayMode extends GameMode {
 
     this.treasureGroup = modeGroup.group()
       .addClass('treasure')
+      .addClass('player-none')
       .transform({
         translateX: this.treasureLocation.x * draw.width(),
         translateY: TERRAIN_DISTANCE + this.treasureLocation.y * TERRAIN_HEIGHT_SCALE,
@@ -455,6 +456,7 @@ export default class PlayMode extends GameMode {
             down.then(async () => {
               if (treasureFound && !this.isGameOver) {
                 debugConsole.log("Treasure found - GAME OVER!");
+                this.treasureGroup.removeClass('player-none').addClass(player.cssClass);
                 await this.gameOver(async () => this.showWinSequence(player));
               }
             });
