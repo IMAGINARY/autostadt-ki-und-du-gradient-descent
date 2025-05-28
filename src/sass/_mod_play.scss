@@ -56,7 +56,7 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
 }
 
 .tangent {
-    stroke: var(--player-tangent-color);
+    stroke: var(--player-tangent-color) !important;
 }
 
 .water {
