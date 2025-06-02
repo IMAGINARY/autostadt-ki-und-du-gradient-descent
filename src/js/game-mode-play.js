@@ -441,7 +441,6 @@ export default class PlayMode extends GameMode {
     lastInputs = lastInputs.slice(0, numPlayers);
 
     // If there is a bot, create fake inputs for it
-    console.log(this.bot);
     if (this.bot !== null && this.bot.player.remainingProbes > 0) {
       const { input, lastInput } = PlayMode.buildBotInput(this.bot);
       inputs.push(input);
