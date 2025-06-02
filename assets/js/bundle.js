@@ -2604,8 +2604,6 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
       inputs = inputs.slice(0, numPlayers);
       lastInputs = lastInputs.slice(0, numPlayers); // If there is a bot, create fake inputs for it
 
-      console.log(this.bot);
-
       if (this.bot !== null && this.bot.player.remainingProbes > 0) {
         var _PlayMode$buildBotInp = PlayMode.buildBotInput(this.bot),
             input = _PlayMode$buildBotInp.input,
