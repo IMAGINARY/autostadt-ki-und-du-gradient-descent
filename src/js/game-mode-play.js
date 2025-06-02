@@ -647,17 +647,29 @@ export default class PlayMode extends GameMode {
     const left = winner.x * draw.width();
     const top = WATER_DISTANCE + BOAT_DRAFT;
 
-    const $winAnnouncement = $('<span>').append(
+    const $winAnnouncement = $('<span class="win-announcement-part">').append(
         localeInit($('<span class="win-announcement-part-1">'), 'win-announcement-part-1'),
         localeInit($('<span class="win-announcement-part-2">'), 'win-announcement-part-2'),
         $('<span class="win-announcement-player">').text(winner.id + 1),
         localeInit($('<span class="win-announcement-part-3">'), 'win-announcement-part-3'),
+        $(' ')
     );
     const randomIdx = arr => Math.floor(Math.random() * (arr.length - 1));
     const $treasure = localeInit($('<span>'), 'treasures', randomIdx(IMAGINARY.i18n.t('treasures')));
 
-    const $firstMessageDiv = $('<div class="line">').append($winAnnouncement);
-    const $secondMessageDiv = $('<div class="line">').append($treasure)
+    /*
+    // Uncomment for cycling through treasures. Useful for style and line break adjustments.
+    let treasureIdx = 0;
+    window.addEventListener('keypress', (e) => {
+      if(e.key=== 't') {
+        treasureIdx = (treasureIdx + 1) % IMAGINARY.i18n.t('treasures').length;
+        localeInit($treasure, 'treasures', treasureIdx);
+      }
+    });
+    */
+
+    const $firstMessageDiv = $winAnnouncement;
+    const $secondMessageDiv = $treasure
         .css('visibility', 'hidden');
 
     const $container = $('<div>').append([$firstMessageDiv, $secondMessageDiv]);

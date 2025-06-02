@@ -121,11 +121,9 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
     --arrow-width: 40px;
     --arrow-height: 58px;
     --anchor-offset-x: 89px;
-    --width: 468px;
+    --width: 567px;
     width: var(--width);
-    height: 167px;
-    padding-left: 74px;
-    padding-right: 74px;
+    height: 160px;
     transform: translate(0px, 21px);
     font-size: 24px;
 
@@ -160,15 +158,17 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
       border-top-width: 0;
     }
 
-    .win-announcement-part-1 {
+    & > * {
+      position: relative;
+      max-width: 446px;
+    }
+
+    & .win-announcement-part {
       font-weight: bold;
     }
 
-    .line-1 {
-      margin-bottom: 14px;
-    }
-
-    .line-2 {
+    & .win-announcement-part::after {
+      content: " ";
     }
   }
 
