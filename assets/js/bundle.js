@@ -2502,11 +2502,11 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
 
       this.tangentGroup = modeGroup.group().translate(0, TERRAIN_DISTANCE); // Set z ordering of elements
 
-      [this.groundGroup, this.water, this.tangentGroup, this.treasureGroup].forEach(function (e) {
+      [this.groundGroup, this.tangentGroup, this.water, this.treasureGroup].forEach(function (e) {
         return e.front();
       });
       this.discardInputs = true;
-      this.showGameStartSequence((0, _i18n.localeInit)($('<span>'), 'objective'), (0, _i18n.localeInit)($('<span>'), 'go'), function () {
+      this.gameStartSequencePromise = this.showGameStartSequence((0, _i18n.localeInit)($('<span>'), 'objective'), (0, _i18n.localeInit)($('<span>'), 'go'), function () {
         return _this3.discardInputs = false;
       });
     }
@@ -2604,7 +2604,9 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
       inputs = inputs.slice(0, numPlayers);
       lastInputs = lastInputs.slice(0, numPlayers); // If there is a bot, create fake inputs for it
 
-      if (this.bot !== null) {
+      console.log(this.bot);
+
+      if (this.bot !== null && this.bot.player.remainingProbes > 0) {
         var _PlayMode$buildBotInp = PlayMode.buildBotInput(this.bot),
             input = _PlayMode$buildBotInp.input,
             lastInput = _PlayMode$buildBotInp.lastInput;
@@ -2821,14 +2823,18 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
                   return p.hideProbe();
                 });
                 _context7.next = 11;
-                return endingSequenceCallback();
+                return this.gameStartSequencePromise;
 
               case 11:
+                _context7.next = 13;
+                return endingSequenceCallback();
+
+              case 13:
                 this.discardInputs = false;
-                _context7.next = 14;
+                _context7.next = 16;
                 return uncoverGroundPromise;
 
-              case 14:
+              case 16:
               case "end":
                 return _context7.stop();
             }
@@ -2941,15 +2947,26 @@ var PlayMode = /*#__PURE__*/function (_GameMode) {
                 draw = this.game.draw;
                 left = winner.x * draw.width();
                 top = WATER_DISTANCE + BOAT_DRAFT;
-                $winAnnouncement = $('<span>').append((0, _i18n.localeInit)($('<span class="win-announcement-part-1">'), 'win-announcement-part-1'), (0, _i18n.localeInit)($('<span class="win-announcement-part-2">'), 'win-announcement-part-2'), $('<span class="win-announcement-player">').text(winner.id + 1), (0, _i18n.localeInit)($('<span class="win-announcement-part-3">'), 'win-announcement-part-3'));
+                $winAnnouncement = $('<span class="win-announcement-part">').append((0, _i18n.localeInit)($('<span class="win-announcement-part-1">'), 'win-announcement-part-1'), (0, _i18n.localeInit)($('<span class="win-announcement-part-2">'), 'win-announcement-part-2'), $('<span class="win-announcement-player">').text(winner.id + 1), (0, _i18n.localeInit)($('<span class="win-announcement-part-3">'), 'win-announcement-part-3'), $(' '));
 
                 randomIdx = function randomIdx(arr) {
                   return Math.floor(Math.random() * (arr.length - 1));
                 };
 
                 $treasure = (0, _i18n.localeInit)($('<span>'), 'treasures', randomIdx(IMAGINARY.i18n.t('treasures')));
-                $firstMessageDiv = $('<div class="line">').append($winAnnouncement);
-                $secondMessageDiv = $('<div class="line">').append($treasure).css('visibility', 'hidden');
+                /*
+                // Uncomment for cycling through treasures. Useful for style and line break adjustments.
+                let treasureIdx = 0;
+                window.addEventListener('keypress', (e) => {
+                  if(e.key=== 't') {
+                    treasureIdx = (treasureIdx + 1) % IMAGINARY.i18n.t('treasures').length;
+                    localeInit($treasure, 'treasures', treasureIdx);
+                  }
+                });
+                */
+
+                $firstMessageDiv = $winAnnouncement;
+                $secondMessageDiv = $treasure.css('visibility', 'hidden');
                 $container = $('<div>').append([$firstMessageDiv, $secondMessageDiv]);
                 $endingSequenceDiv = $('<div class="announcement-sequences-text bubble game-won" />').addClass(left < draw.width() / 2 ? 'arrow-left' : 'arrow-right').css({
                   '--anchor-x': "".concat(left, "px"),

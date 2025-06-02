@@ -235,7 +235,7 @@ html, body {
   left: 0;
   width: 100%;
   height: calc(1080px - var(--water-distance));
-  background: linear-gradient(180deg, rgba(125, 196, 255, 0.45) 0%, rgba(125, 196, 255, 0.45) 100%);
+  background: linear-gradient(180deg, rgba(156, 204, 255, 0.6) 0%, rgba(186, 220, 255, 0.35) 100%);
 }
 
 .bubble {
@@ -286,12 +286,11 @@ html, body {
   left: 566px;
   font-size: 24px;
   font-weight: 400;
-  height: 140px;
+  height: 139px;
   width: 338px;
   line-height: 30px;
-  padding-left: 59px;
-  padding-right: 50px;
-  padding-top: 4px;
+  justify-content: center;
+  z-index: 1;
 }
 
 #title-bubble-1::after {
@@ -305,12 +304,10 @@ html, body {
   left: 773px;
   font-size: 32px;
   font-weight: 400;
-  height: 181px;
-  width: 616px;
+  height: 180px;
+  width: 641px;
   line-height: 38px;
-  padding-left: 97px;
-  padding-bottom: 4px;
-  justify-content: left;
+  justify-content: center;
 }
 
 #title-bubble-2::after {
@@ -334,7 +331,7 @@ html, body {
   display: inline-block;
   border-width: 2px;
   border-style: solid;
-  border-color: #ff6836;
+  border-color: rgba(255, 104, 54, 0.3);
   border-radius: 50vh;
   padding: 0;
   box-sizing: border-box;
@@ -479,7 +476,7 @@ html, body {
 }
 
 .tangent {
-  stroke: var(--player-tangent-color);
+  stroke: var(--player-tangent-color) !important;
 }
 
 .water {
@@ -487,11 +484,11 @@ html, body {
 }
 
 .water-gradient-stop-top {
-  stop-color: rgba(125, 196, 255, 0.45);
+  stop-color: rgba(156, 204, 255, 0.6);
 }
 
 .water-gradient-stop-bottom {
-  stop-color: rgba(125, 196, 255, 0.45);
+  stop-color: rgba(186, 220, 255, 0.35);
 }
 
 .ground-group.clip {
@@ -504,7 +501,7 @@ html, body {
 
 .ground {
   stroke: none;
-  fill: rgb(226, 183, 154);
+  fill: rgb(226, 155, 116);
 }
 
 .treasure {
@@ -529,7 +526,7 @@ html, body {
   top: 550px;
 }
 .overlay .announcement-sequences-text.game-lost {
-  top: 488px;
+  top: 458px;
 }
 .overlay .announcement-sequences-text.game-won.bubble {
   --bubble-color: #DCB99E;
@@ -538,11 +535,9 @@ html, body {
   --arrow-width: 40px;
   --arrow-height: 58px;
   --anchor-offset-x: 89px;
-  --width: 468px;
+  --width: 567px;
   width: var(--width);
-  height: 167px;
-  padding-left: 74px;
-  padding-right: 74px;
+  height: 160px;
   transform: translate(0px, 21px);
   font-size: 24px;
 }
@@ -572,11 +567,15 @@ html, body {
   border-right-width: 0;
   border-top-width: 0;
 }
-.overlay .announcement-sequences-text.game-won.bubble .win-announcement-part-1 {
+.overlay .announcement-sequences-text.game-won.bubble > * {
+  position: relative;
+  max-width: 446px;
+}
+.overlay .announcement-sequences-text.game-won.bubble .win-announcement-part {
   font-weight: bold;
 }
-.overlay .announcement-sequences-text.game-won.bubble .line-1 {
-  margin-bottom: 14px;
+.overlay .announcement-sequences-text.game-won.bubble .win-announcement-part::after {
+  content: " ";
 }
 .overlay .restart-hint.bubble {
   --bubble-color: #F8EBE1;
@@ -584,8 +583,8 @@ html, body {
   height: 126px;
   top: 859px;
   width: 264px;
-  padding-left: 57px;
-  padding-right: 20px;
+  padding: 0 46px;
+  justify-content: center;
 }
 .overlay .restart-hint.bubble::after {
   left: 68px;
@@ -761,4 +760,4 @@ html, body {
   margin-top: -0.1ex;
   font-size: 188%;
 }
-/*# sourceMappingURL=default-1b7d5611e5.css.map */
+/*# sourceMappingURL=default-611b528a9a.css.map */
