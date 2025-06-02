@@ -102,12 +102,10 @@
   left: 566px;
   font-size: 24px;
   font-weight: 400;
-  height: 140px;
+  height: 139px;
   width: 338px;
   line-height: 30px;
-  padding-left: 59px;
-  padding-right: 50px;
-  padding-top: 4px;
+  justify-content: center;
 }
 
 #title-bubble-1::after {
@@ -121,12 +119,10 @@
   left: 773px;
   font-size: 32px;
   font-weight: 400;
-  height: 181px;
-  width: 656px;
+  height: 180px;
+  width: 641px;
   line-height: 38px;
-  padding-left: 97px;
-  padding-bottom: 4px;
-  justify-content: left;
+  justify-content: center;
 }
 
 #title-bubble-2::after {
