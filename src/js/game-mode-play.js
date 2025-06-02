@@ -356,7 +356,7 @@ export default class PlayMode extends GameMode {
     [this.groundGroup, this.tangentGroup, this.water, this.treasureGroup].forEach(e => e.front());
 
     this.discardInputs = true;
-    this.showGameStartSequence(
+    this.gameStartSequencePromise = this.showGameStartSequence(
         localeInit($('<span>'), 'objective'),
         localeInit($('<span>'), 'go'),
         () => this.discardInputs = false
@@ -601,6 +601,7 @@ export default class PlayMode extends GameMode {
     // Hide the probes
     this.players.forEach(p => p.hideProbe());
 
+    await this.gameStartSequencePromise;
     await endingSequenceCallback();
     this.discardInputs = false;
     await uncoverGroundPromise;
