@@ -178,8 +178,8 @@ $player-tangent-colors: $color-player-0-tangent, $color-player-1-tangent, $color
     height: 126px;
     top: 859px;
     width: 264px;
-    padding-left: 57px;
-    padding-right: 20px;
+    padding: 0 46px;
+    justify-content: center;
 
     &::after {
       left: 68px;
