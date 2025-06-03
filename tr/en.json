@@ -7,12 +7,12 @@
   "press-to-restart": "Press a button\nto restart",
   "choose-num-players": "Choose the number of players:",
   "choose-bot-type": {
-    "difficulty": "Choose the difficulty level of the bot",
+    "difficulty": "Add an automated boat as an opponent:",
     "strategy": "Choose the bot type"
   },
   "bot-types": {
     "difficulty": {
-      "none": "none",
+      "none": "without",
       "random": "easy",
       "random-tip": "Searches randomly without a strategy",
       "gradient-descent": "medium",
